@@ -1,6 +1,8 @@
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
+import GithubIcon from '@/components/icons/GithubIcons';
 import { FormEventHandler } from 'react';
+import Hr from '@/components/ui/Hr';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -38,6 +40,18 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     return (
         <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
             <Head title="Log in" />
+                <a
+                    type="submit"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
+                    tabIndex={4}
+                    href={route('auth.github')}
+                >
+                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                    <GithubIcon />
+                    Log in with Github
+            </a>
+
+            <Hr />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">

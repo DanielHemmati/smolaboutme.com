@@ -9,8 +9,53 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 Route::middleware('guest')->group(function () {
+    Route::get('/auth/redirect', function () {
+        return Socialite::driver('github')->redirect();
+    })->name('auth.github');
+
+    Route::get('/auth/github/callback', function () {
+        $githubUser = Socialite::driver('github')->user();
+
+        $user = User::where('email', $githubUser->email)->first();
+
+        if ($user){
+            $user->update([
+                'github_id' => $githubUser->id,
+                'github_token' => $githubUser->token,
+                'github_refresh_token' => $githubUser->refreshToken,
+                'avatar_url' => $githubUser->avatar,
+            ]);
+        } else {
+            $user = User::create([
+                'name' => $githubUser->name,
+                'email' => $githubUser->email,
+                'github_id' => $githubUser->id,
+                'github_token' => $githubUser->token,
+                'github_refresh_token' => $githubUser->refreshToken,
+                'avatar_url' => $githubUser->avatar,
+            ]);
+        }
+
+        // $user = User::updateOrCreate([
+        //     'github_id' => $githubUser->id,
+        // ], [
+        //     'name' => $githubUser->name,
+        //     'email' => $githubUser->email,
+        //     'github_token' => $githubUser->token,
+        //     'github_refresh_token' => $githubUser->refreshToken,
+        //     'avatar_url' => $githubUser->avatar,
+        // ]);
+
+        Auth::login($user);
+
+        return redirect('/dashboard');
+    });
+
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
