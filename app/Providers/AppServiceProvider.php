@@ -27,12 +27,14 @@ class AppServiceProvider extends ServiceProvider
         $this->configureURL();
     }
 
-    public function modelConfiguration() {
+    public function modelConfiguration()
+    {
         Model::unguard();
         Model::shouldBeStrict();
     }
 
-    public function configureURL(){
+    public function configureURL()
+    {
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }

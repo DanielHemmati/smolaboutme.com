@@ -21,35 +21,17 @@ Route::middleware('guest')->group(function () {
     Route::get('/auth/github/callback', function () {
         $githubUser = Socialite::driver('github')->user();
 
-        $user = User::where('email', $githubUser->email)->first();
+        dd(Socialite::driver('github')->redirect());
 
-        if ($user){
-            $user->update([
-                'github_id' => $githubUser->id,
-                'github_token' => $githubUser->token,
-                'github_refresh_token' => $githubUser->refreshToken,
-                'avatar_url' => $githubUser->avatar,
-            ]);
-        } else {
-            $user = User::create([
-                'name' => $githubUser->name,
-                'email' => $githubUser->email,
-                'github_id' => $githubUser->id,
-                'github_token' => $githubUser->token,
-                'github_refresh_token' => $githubUser->refreshToken,
-                'avatar_url' => $githubUser->avatar,
-            ]);
-        }
-
-        // $user = User::updateOrCreate([
-        //     'github_id' => $githubUser->id,
-        // ], [
-        //     'name' => $githubUser->name,
-        //     'email' => $githubUser->email,
-        //     'github_token' => $githubUser->token,
-        //     'github_refresh_token' => $githubUser->refreshToken,
-        //     'avatar_url' => $githubUser->avatar,
-        // ]);
+        $user = User::updateOrCreate([
+            'github_id' => $githubUser->id,
+        ], [
+            'name' => $githubUser->name,
+            'email' => $githubUser->email,
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+            'avatar_url' => $githubUser->avatar,
+        ]);
 
         Auth::login($user);
 
