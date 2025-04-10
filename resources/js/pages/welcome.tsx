@@ -38,9 +38,12 @@ export default function Welcome() {
                         )}
                     </nav>
                 </header>
-                <div className="debug w-full lg:grow starting:opacity-0">
+                <div className="w-full lg:grow starting:opacity-0">
                     <main className="">
                         <h1>hello world</h1>
+                        <a className="text-blue-500" href={route('test')}>
+                            test
+                        </a>
                     </main>
                 </div>
                 <div className="hidden h-14.5 lg:block"></div>

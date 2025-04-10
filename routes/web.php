@@ -15,7 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('/test', function () {
     return Inertia::render('test');
-});
+})->name('test');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
