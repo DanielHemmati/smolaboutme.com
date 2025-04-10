@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        DB::prohibitDestructiveCommands($this->app->environment('production'));
+        // DB::prohibitDestructiveCommands($this->app->environment('production'));
         $this->modelConfiguration();
         $this->configureURL();
     }
