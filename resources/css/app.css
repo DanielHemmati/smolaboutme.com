@@ -11,6 +11,11 @@
     @apply border border-red-500;
 }
 
+
+.ProseMirror:focus {
+    outline: none;
+}
+
 .tiptap {
     @apply space-y-4;
 }
