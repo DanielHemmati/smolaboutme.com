@@ -1,13 +1,10 @@
-import Editor from "@/components/editor";
-import { useCurrentEditor } from "@tiptap/react";
-
+// import Editor from "@/components/editor";
+import LearnTiptap from "@/components/playground/learn-tiptap";
 
 function Test() {
-    const {editor} = useCurrentEditor();
     return (
         <div className="max-w-[600px] mx-auto mt-10">
-            <Editor />
-            <pre>{JSON.stringify(editor?.getJSON(), null, 2)}</pre>
+            <LearnTiptap />
         </div>
     );
 }

@@ -11,6 +11,49 @@
     @apply border border-red-500;
 }
 
+.tiptap {
+    @apply space-y-4;
+}
+
+.tiptap pre {
+    @apply rounded-sm bg-gray-100 p-2;
+}
+
+.tiptap ul {
+    @apply list-disc pl-4;
+}
+
+.tiptap ol {
+    @apply list-decimal pl-4;
+}
+.tiptap h1 {
+    @apply text-2xl;
+}
+
+.tiptap h2 {
+    @apply text-xl;
+}
+
+.tiptap h3 {
+    @apply text-lg;
+}
+
+.tiptap h4 {
+    @apply text-base;
+}
+
+.tiptap h5 {
+    @apply text-sm;
+}
+
+.tiptap h6 {
+    @apply text-xs;
+}
+
+.tiptap blockquote {
+    @apply border-l-2 border-gray-300 pl-4;
+}
+
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
