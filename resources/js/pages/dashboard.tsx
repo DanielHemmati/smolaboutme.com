@@ -2,7 +2,6 @@ import Editor from '@/components/editor';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useInitials } from '@/hooks/use-initials';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { User } from 'lucide-react';
@@ -10,7 +9,6 @@ import { User } from 'lucide-react';
 export default function Dashboard() {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
-    const isMobile = useIsMobile();
 
     return (
         <div className="relative container mx-auto">
