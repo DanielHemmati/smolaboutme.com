@@ -17,8 +17,8 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        title: '',
+        href: '',
         icon: Folder,
     },
     {
@@ -30,12 +30,21 @@ const footerNavItems: NavItem[] = [
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar
+            collapsible="icon"
+            variant="inset"
+        >
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                        <SidebarMenuButton
+                            size="lg"
+                            asChild
+                        >
+                            <Link
+                                href="/dashboard"
+                                prefetch
+                            >
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
@@ -48,7 +57,10 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <NavFooter
+                    items={footerNavItems}
+                    className="mt-auto"
+                />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
