@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -67,6 +67,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'github_id',
+        'github_token',
+        'github_refresh_token',
     ];
 
     public function content(): HasOne
