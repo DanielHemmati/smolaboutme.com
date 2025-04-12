@@ -1,8 +1,10 @@
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useForm } from '@inertiajs/react';
+import Placeholder from '@tiptap/extension-placeholder';
 import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Bold, Italic, Strikethrough } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const content = `
 <h2>
@@ -34,20 +36,32 @@ const content = `
 
 export default function Editor() {
     const editor = useEditor({
-        extensions: [StarterKit],
-        content,
+        extensions: [
+            StarterKit,
+            Placeholder.configure({
+                placeholder: 'Write something...',
+            }),
+        ],
+        // content: '',
         onUpdate: ({ editor }) => {
             setData('content', JSON.stringify(editor?.getJSON()));
         },
+        editable: true,
     });
 
-    // this part make the editor editable or read only
-    const [isEditable, setIsEditable] = useState(true);
     useEffect(() => {
         if (editor) {
-            editor.setEditable(isEditable);
+            editor.commands.focus();
         }
-    }, [editor, isEditable]);
+    }, [editor]);
+
+    // this part make the editor editable or read only
+    // const [isEditable, setIsEditable] = useState(true);
+    // useEffect(() => {
+    //     if (editor) {
+    //         editor.setEditable(isEditable);
+    //     }
+    // }, [editor, isEditable]);
 
     const { post, processing, setData } = useForm({
         content: '',
@@ -64,51 +78,74 @@ export default function Editor() {
 
     return (
         <>
-            {/* control group */}
-            <div className="pb-4">
-                <label className="flex items-center gap-2">
-                    <input
-                        type="checkbox"
-                        checked={isEditable}
-                        onChange={() => setIsEditable(!isEditable)}
-                    />
-                    <span>Editable</span>
-                </label>
-            </div>
-
             {editor && (
                 <BubbleMenu
                     tippyOptions={{
                         duration: [100, 200], // show and hide duration
                     }}
                     editor={editor}
-                    className="rounded-md bg-[#252525] p-1 shadow-lg"
+                    className="rounded-md p-1 shadow-lg dark:bg-[#252525]"
                 >
                     <div className="flex items-center gap-2">
-                        <button
-                            onClick={() => editor.chain().focus().toggleBold().run()}
-                            className={`${editor.isActive('bold') ? 'text-blue-500' : 'text-white'} rounded-md px-2 py-1 hover:bg-white/10`}
-                        >
-                            <Bold className="h-4 w-4" />
-                        </button>
-                        <button
-                            onClick={() => editor.chain().focus().toggleItalic().run()}
-                            className={`${editor.isActive('italic') ? 'text-blue-500' : 'text-white'} rounded-md px-2 py-1 hover:bg-white/10`}
-                        >
-                            <Italic className="h-4 w-4" />
-                        </button>
-                        <button
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleBold().run()}
+                                        className={`${editor.isActive('bold') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3]`}
+                                    >
+                                        <Bold className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Bold</p>
+                                    <span className="text-xs text-gray-500">Ctrl + B</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleItalic().run()}
+                                        className={`${editor.isActive('italic') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3]`}
+                                    >
+                                        <Italic className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Italic</p>
+                                    <span className="text-xs text-gray-500">Ctrl + I</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                <TooltipTrigger asChild>
+                                                            <button
                             onClick={() => editor.chain().focus().toggleStrike().run()}
-                            className={`${editor.isActive('strike') ? 'text-blue-500' : 'text-white'} rounded-md px-2 py-1 hover:bg-white/10`}
-                        >
-                            <Strikethrough className="h-4 w-4" />
-                        </button>
-                        {/* Add more buttons as needed */}
-                    </div>
+                                        className={`${editor.isActive('strike') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3]`}
+                                    >
+                                        <Strikethrough className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                        <p>Strikethrough</p>
+                                        <span className="text-xs text-gray-500">Ctrl + Shift + S</span>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
                 </BubbleMenu>
             )}
 
-            <form
+            {/* i am going with update and throttle */}
+            <EditorContent
+                editor={editor}
+                className="focus:outline-none"
+            />
+
+            {/* <form
                 onSubmit={handleSubmit}
                 action={route('content.store')}
                 method="post"
@@ -118,6 +155,7 @@ export default function Editor() {
                     className="focus:outline-none"
                 />
 
+
                 <button
                     // className="absolute top-2 right-2 rounded-md bg-blue-500 px-4 py-2 text-white"
                     className={`absolute top-2 right-2 rounded-md bg-blue-500 px-4 py-2 text-white ${processing ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -126,7 +164,7 @@ export default function Editor() {
                 >
                     save
                 </button>
-            </form>
+            </form> */}
         </>
     );
 }
