@@ -1,3 +1,4 @@
+import { useForm } from '@inertiajs/react';
 import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Bold, Italic, Strikethrough } from 'lucide-react';
@@ -35,6 +36,9 @@ export default function Editor() {
     const editor = useEditor({
         extensions: [StarterKit],
         content,
+        onUpdate: ({ editor }) => {
+            setData('content', JSON.stringify(editor?.getJSON()));
+        },
     });
 
     // this part make the editor editable or read only
@@ -45,10 +49,23 @@ export default function Editor() {
         }
     }, [editor, isEditable]);
 
+    const { post, processing, setData } = useForm({
+        content: '',
+    });
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (editor) {
+            const jsonContent = editor?.getJSON();
+            setData('content', JSON.stringify(jsonContent));
+            post(route('content.store'));
+        }
+    };
+
     return (
         <>
             {/* control group */}
-            <div className="border-gray-200 pb-4">
+            <div className="pb-4">
                 <label className="flex items-center gap-2">
                     <input
                         type="checkbox"
@@ -91,10 +108,25 @@ export default function Editor() {
                 </BubbleMenu>
             )}
 
-            <EditorContent
-                editor={editor}
-                className="focus:outline-none"
-            />
+            <form
+                onSubmit={handleSubmit}
+                action={route('content.store')}
+                method="post"
+            >
+                <EditorContent
+                    editor={editor}
+                    className="focus:outline-none"
+                />
+
+                <button
+                    // className="absolute top-2 right-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+                    className={`absolute top-2 right-2 rounded-md bg-blue-500 px-4 py-2 text-white ${processing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    type="submit"
+                    disabled={processing}
+                >
+                    save
+                </button>
+            </form>
         </>
     );
 }
