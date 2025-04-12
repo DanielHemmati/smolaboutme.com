@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useInitials } from '@/hooks/use-initials';
 import { SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 
 export default function Dashboard() {
     const { auth } = usePage<SharedData>().props;
@@ -27,16 +27,28 @@ export default function Dashboard() {
                     <DropdownMenuContent
                         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
                         align="end"
-                        // side={isMobile ? 'bottom' : 'bottom'}
                     >
                         {/* i don't know if there is a better for this or not */}
                         <DropdownMenuItem className="hover:!bg-transparent">
                             <span className="text-muted-foreground truncate text-xs select-text">{auth.user.email}</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            <Link className="cursor-pointer" href={route('profile.edit')}>
+                            <Link
+                                className="cursor-pointer"
+                                href={route('profile.edit')}
+                            >
                                 <User className="mr-2 size-4" />
                                 Profile
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link
+                                className="cursor-pointer w-full"
+                                href={route('logout')}
+                                method="post"
+                            >
+                                <LogOut className="mr-2 size-4" />
+                                Logout
                             </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
