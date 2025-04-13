@@ -22,6 +22,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/auth/github/callback', function () {
         $githubUser = Socialite::driver('github')->user();
 
+        // re_U8GZTymp_8NPaUFRRRHf85cCqRMciisWc
         $user = User::updateOrCreate([
             'github_id' => $githubUser->id,
         ], [

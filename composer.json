@@ -15,6 +15,7 @@
         "laravel/socialite": "^5.19",
         "laravel/tinker": "^2.10.1",
         "league/flysystem-aws-s3-v3": "^3.0",
+        "resend/resend-laravel": "^0.17.0",
         "tightenco/ziggy": "^2.4",
         "ueberdosis/tiptap-php": "^1.4"
     },

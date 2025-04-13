@@ -8,6 +8,8 @@ use App\Http\Controllers\ContentController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 // use TipTap\Editor;
 
 Route::get('/', function () {
@@ -32,7 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/test', function () {
-    return Inertia::render('test');
+    Mail::to('delivered@resend.dev')->send(new TestMail());
+    return 'Email sent';
 })->name('test');
 
 // all of this route should be in auth middleware
