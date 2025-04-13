@@ -42,7 +42,7 @@ export default function Register() {
             <a
                 type="submit"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
-                tabIndex={4}
+                tabIndex={6}
                 href={route('auth.github')}
             >
                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}

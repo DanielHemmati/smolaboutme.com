@@ -1,8 +1,8 @@
+import GithubIcon from '@/components/icons/GithubIcons';
+import Hr from '@/components/ui/Hr';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import GithubIcon from '@/components/icons/GithubIcons';
 import { FormEventHandler } from 'react';
-import Hr from '@/components/ui/Hr';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -38,25 +38,36 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
 
     return (
-        <AuthLayout title="Log in" description="Login with gitub or email">
+        <AuthLayout
+            title="Log in"
+            description="Login with gitub or email"
+        >
             <Head title="Log in" />
-                <a
-                    type="submit"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
-                    tabIndex={4}
-                    href={route('auth.github')}
-                >
-                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    <GithubIcon />
-                    Log in with Github
+            <a
+                type="submit"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
+                tabIndex={5}
+                href={route('auth.github')}
+            >
+                {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                <GithubIcon />
+                Log in with Github
             </a>
 
             <Hr />
 
-            <form className="flex flex-col gap-6" onSubmit={submit}>
+            <form
+                className="flex flex-col gap-6"
+                onSubmit={submit}
+            >
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email" className="dark:text-[#d4d4d4]">Email address</Label>
+                        <Label
+                            htmlFor="email"
+                            className="dark:text-[#d4d4d4]"
+                        >
+                            Email address
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -74,9 +85,18 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password" className="dark:text-[#d4d4d4]">Password</Label>
+                            <Label
+                                htmlFor="password"
+                                className="dark:text-[#d4d4d4]"
+                            >
+                                Password
+                            </Label>
                             {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
+                                <TextLink
+                                    href={route('password.request')}
+                                    className="ml-auto text-sm"
+                                    tabIndex={5}
+                                >
                                     Forgot password?
                                 </TextLink>
                             )}
@@ -102,12 +122,22 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             checked={data.remember}
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
-                            className="dark:text-white dark:bg-[#333] dark:border-[#555] "
+                            className="dark:border-[#555] dark:bg-[#333] dark:text-white"
                         />
-                        <Label htmlFor="remember" className="dark:text-[#d4d4d4]">Remember me</Label>
+                        <Label
+                            htmlFor="remember"
+                            className="dark:text-[#d4d4d4]"
+                        >
+                            Remember me
+                        </Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                    <Button
+                        type="submit"
+                        className="mt-4 w-full"
+                        tabIndex={4}
+                        disabled={processing}
+                    >
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Log in
                     </Button>
@@ -115,7 +145,10 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                 <div className="text-muted-foreground text-center text-sm">
                     Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
+                    <TextLink
+                        href={route('register')}
+                        tabIndex={5}
+                    >
                         Sign up
                     </TextLink>
                 </div>
