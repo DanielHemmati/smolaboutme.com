@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -27,17 +28,30 @@ class ProfileController extends Controller
     /**
      * Update the user's profile settings.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // nullable b/c user might just want to either of those
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        if ($request->hasFile('avatar_url')) {
+            $filePath = Storage::disk('r2')->put('avatars', $request->file('avatar_url'));
+            $fileUrl = Storage::url($filePath);
+            $validated['avatar_url'] = $fileUrl;
+        }
+
+        $request->user()->fill($validated);
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->save();
+        User::where('id', $request->user()->id)->update($validated);
 
-        return to_route('profile.edit');
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
     /**

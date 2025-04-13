@@ -18,7 +18,6 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-
             'email' => [
                 'required',
                 'string',
@@ -27,6 +26,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            // TODO: what if we accept gifs? it would really cool
+            'avatar_url' => ['required', 'image', 'mimes:jpeg,png,jpg'],
         ];
     }
 }

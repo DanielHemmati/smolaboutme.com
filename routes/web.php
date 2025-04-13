@@ -5,6 +5,9 @@ use Inertia\Inertia;
 use App\Models\Content;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ContentController;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Models\User;
 // use TipTap\Editor;
 
 Route::get('/', function () {
@@ -25,5 +28,6 @@ Route::get('/test', function () {
 Route::post('content', [ContentController::class, 'store'])->name('content.store');
 Route::get('content/{content}', [ContentController::class, 'show'])->name('content.show');
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

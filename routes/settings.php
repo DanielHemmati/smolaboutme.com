@@ -9,7 +9,10 @@ Route::middleware('auth')->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // b/c of method spoofing
+    Route::match(['patch', 'post'], 'settings/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('password.edit');
@@ -19,3 +22,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('settings/appearance');
     })->name('appearance');
 });
+
+// Route::middleware('auth')->group(function () {
+//     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
+// });
