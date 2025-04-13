@@ -1,9 +1,10 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useForm } from '@inertiajs/react';
 import Placeholder from '@tiptap/extension-placeholder';
+import Underline from '@tiptap/extension-underline'
 import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Bold, Italic, Strikethrough } from 'lucide-react';
+import { Bold, Italic, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
 import { useEffect } from 'react';
 
 const content = `
@@ -41,6 +42,7 @@ export default function TiptapEditor() {
             Placeholder.configure({
                 placeholder: 'Write something...',
             }),
+            Underline,
         ],
         onUpdate: ({ editor }) => {
             setData('content', JSON.stringify(editor?.getJSON()));
@@ -132,6 +134,22 @@ export default function TiptapEditor() {
                                 <TooltipContent>
                                     <p>Strikethrough</p>
                                     <span className="text-xs text-gray-500">Ctrl + Shift + S</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleUnderline().run()}
+                                        className={`${editor.isActive('underline') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                    >
+                                        <UnderlineIcon className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Underline</p>
+                                    <span className="text-xs text-gray-500">Ctrl + U</span>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
