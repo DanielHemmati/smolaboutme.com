@@ -1,7 +1,7 @@
 import { type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { ImageUp, Loader2, LogOut, User } from 'lucide-react';
+import { ArrowLeft, ImageUp, Loader2, LogOut, User } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 
 // import DeleteUser from '@/components/delete-user';
@@ -58,6 +58,16 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
         <div className="relative container mx-auto">
             <div className="mx-auto mt-10 max-w-[600px] pt-20">
                 <Head title="Profile settings" />
+
+                <div className="mb-6">
+                    <Link
+                        href={route('dashboard')}
+                        className="group flex items-center"
+                    >
+                        <ArrowLeft className="mr-2 size-4 group-hover:text-white/80" />
+                        <span className="dark:text-white group-hover:dark:text-white/80 text-black text-sm"> Back to Dashboard </span>
+                    </Link>
+                </div>
 
                 <div className="space-y-6">
                     <HeadingSmall
@@ -144,7 +154,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     placeholder="Email address"
                                 />
                                 {mustVerifyEmail && auth.user.email_verified_at === null && (
-                                    <div className="mt-2 ">
+                                    <div className="mt-2">
                                         <p className="text-muted-foreground text-sm">
                                             Your email address is unverified.{' '}
                                             <Link
@@ -198,7 +208,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Avatar className="cursor-pointer">
-                                <AvatarImage className="object-cover" src={auth.user.avatar_url} />
+                                <AvatarImage
+                                    className="object-cover"
+                                    src={auth.user.avatar_url}
+                                />
                                 <AvatarFallback>{getInitials(auth.user.name)}</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
