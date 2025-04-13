@@ -49,6 +49,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             forceFormData: true,
             method: 'patch',
             onFinish: () => {
+                // TODO: do sth maybe
                 console.log('finished');
             },
         });
@@ -61,11 +62,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                 <div className="mb-6">
                     <Link
-                        href={route('dashboard')}
+                        href={route('user.editor', { username: auth.user.name.toLowerCase() })}
                         className="group flex items-center"
                     >
-                        <ArrowLeft className="mr-2 size-4 group-hover:text-white/80" />
-                        <span className="dark:text-white group-hover:dark:text-white/80 text-black text-sm"> Back to Dashboard </span>
+                        <ArrowLeft className="mr-2 size-4 group-hover:dark:text-white/80 dark:text-white" />
+                        <span className="dark:text-[#d4d4d4] group-hover:dark:text-white/80 text-black text-sm"> Back to Dashboard </span>
                     </Link>
                 </div>
 
@@ -122,11 +123,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                         <div className="flex w-2/3 flex-col gap-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name" className="dark:text-[#d4d4d4]">Name</Label>
 
                                 <Input
                                     id="name"
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full placeholder:dark:text-white/30 dark:text-[#d4d4d4]"
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                     required
@@ -141,27 +142,27 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email" className="dark:text-[#d4d4d4]">Email address</Label>
 
                                 <Input
                                     id="email"
                                     type="email"
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full dark:placeholder:text-white/30 dark:text-[#d4d4d4]"
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
                                     required
-                                    autoComplete="username"
-                                    placeholder="Email address"
+                                    autoComplete="email"
+                                    placeholder="test@gmail.com"
                                 />
                                 {mustVerifyEmail && auth.user.email_verified_at === null && (
                                     <div className="mt-2">
-                                        <p className="text-muted-foreground text-sm">
+                                        <p className="text-muted-foreground text-sm dark:text-[#d4d4d4]">
                                             Your email address is unverified.{' '}
                                             <Link
                                                 href={route('verification.send')}
                                                 method="post"
                                                 as="button"
-                                                className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                                className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500 dark:text-[#d4d4d4]"
                                             >
                                                 Click here to resend the verification email.
                                             </Link>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -34,8 +35,8 @@ class ProfileController extends Controller
     {
         // nullable b/c user might just want to either of those
         $validated = $request->validate([
-            'name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
+            'name' => ['nullable', 'string', 'max:255', Rule::unique(User::class)->ignore($request->user()->id)], // this Rule stuff is really handy
+            'email' => ['nullable', 'email', 'max:255', Rule::unique(User::class)->ignore($request->user()->id)],
             'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 

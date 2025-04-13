@@ -38,7 +38,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
+        <AuthLayout title="Log in" description="Login with gitub or email">
             <Head title="Log in" />
                 <a
                     type="submit"
@@ -56,7 +56,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+                        <Label htmlFor="email" className="dark:text-[#d4d4d4]">Email address</Label>
                         <Input
                             id="email"
                             type="email"
@@ -64,6 +64,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoFocus
                             tabIndex={1}
                             autoComplete="email"
+                            className="dark:text-[#d4d4d4] dark:placeholder:text-white/30"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             placeholder="email@example.com"
@@ -73,7 +74,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="dark:text-[#d4d4d4]">Password</Label>
                             {canResetPassword && (
                                 <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
                                     Forgot password?
@@ -86,6 +87,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             required
                             tabIndex={2}
                             autoComplete="current-password"
+                            className="dark:text-[#d4d4d4] dark:placeholder:text-white/30"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             placeholder="Password"
@@ -100,8 +102,9 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             checked={data.remember}
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
+                            className="dark:text-white dark:bg-[#333] dark:border-[#555] "
                         />
-                        <Label htmlFor="remember">Remember me</Label>
+                        <Label htmlFor="remember" className="dark:text-[#d4d4d4]">Remember me</Label>
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>

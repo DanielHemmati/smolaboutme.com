@@ -7,10 +7,16 @@ export default function Welcome() {
     return (
         <>
             <Head title="Welcome">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.bunny.net"
+                />
+                <link
+                    href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600"
+                    rel="stylesheet"
+                />
             </Head>
-            <div className="container mx-auto bg-[#FDFDFC] p-6 text-[#1b1b18] dark:bg-[#0a0a0a]">
+            <div className="container mx-auto bg-[#FDFDFC] p-6 text-[#1b1b18] dark:bg-[#191919]">
                 <header className="mb-6 w-full text-sm not-has-[nav]:hidden">
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
@@ -39,11 +45,8 @@ export default function Welcome() {
                     </nav>
                 </header>
                 <div className="w-full lg:grow starting:opacity-0">
-                    <main className="">
+                    <main className="dark:text-white">
                         <h1>hello world</h1>
-                        <a className="text-blue-500" href={route('test')}>
-                            test
-                        </a>
                     </main>
                 </div>
                 <div className="hidden h-14.5 lg:block"></div>

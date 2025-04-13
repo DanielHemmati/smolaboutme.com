@@ -34,7 +34,7 @@ const content = `
 </blockquote>
 `;
 
-export default function Editor() {
+export default function TiptapEditor() {
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -84,7 +84,7 @@ export default function Editor() {
                         duration: [100, 200], // show and hide duration
                     }}
                     editor={editor}
-                    className="rounded-md p-1 shadow-lg dark:bg-[#252525]"
+                    className="rounded-md p-1 shadow-lg dark:bg-[#242425]"
                 >
                     <div className="flex items-center gap-2">
                         <TooltipProvider>
@@ -92,7 +92,7 @@ export default function Editor() {
                                 <TooltipTrigger asChild>
                                     <button
                                         onClick={() => editor.chain().focus().toggleBold().run()}
-                                        className={`${editor.isActive('bold') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3]`}
+                                        className={`${editor.isActive('bold') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
                                         <Bold className="h-4 w-4" />
                                     </button>
@@ -108,7 +108,7 @@ export default function Editor() {
                                 <TooltipTrigger asChild>
                                     <button
                                         onClick={() => editor.chain().focus().toggleItalic().run()}
-                                        className={`${editor.isActive('italic') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3]`}
+                                        className={`${editor.isActive('italic') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
                                         <Italic className="h-4 w-4" />
                                     </button>
@@ -119,23 +119,23 @@ export default function Editor() {
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
-                            <TooltipProvider>
-                                <Tooltip>
+                        <TooltipProvider>
+                            <Tooltip>
                                 <TooltipTrigger asChild>
-                                                            <button
-                            onClick={() => editor.chain().focus().toggleStrike().run()}
-                                        className={`${editor.isActive('strike') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3]`}
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleStrike().run()}
+                                        className={`${editor.isActive('strike') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
                                         <Strikethrough className="h-4 w-4" />
                                     </button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                        <p>Strikethrough</p>
-                                        <span className="text-xs text-gray-500">Ctrl + Shift + S</span>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
+                                    <p>Strikethrough</p>
+                                    <span className="text-xs text-gray-500">Ctrl + Shift + S</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </div>
                 </BubbleMenu>
             )}
 

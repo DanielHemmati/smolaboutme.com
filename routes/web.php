@@ -18,6 +18,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    Route::get('/u/{username}/editor', function ($username) {
+        User::where('name', $username)->firstOrFail();
+        return Inertia::render('user/editor');
+    })->name('user.editor');
+
+    Route::get('/u/{username}', function (Content $content) {
+        return Inertia::render('user/profile', [
+            'content' => $content,
+        ]);
+    })->name('user.profile');
 });
 
 Route::get('/test', function () {
