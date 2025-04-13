@@ -66,6 +66,36 @@
     @apply border-l-2 border-gray-300 pl-4;
 }
 
+.tiptap ul[data-type='taskList'] {
+    list-style: none;
+    margin-left: 0;
+    padding: 0;
+}
+
+.tiptap ul[data-type='taskList'] li {
+    align-items: flex-start;
+    display: flex;
+}
+
+.tiptap ul[data-type='taskList'] li > label {
+    flex: 0 0 auto;
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+.tiptap ul[data-type='taskList'] li > div {
+    flex: 1 1 auto;
+}
+
+.tiptap ul[data-type='taskList'] input[type='checkbox'] {
+    cursor: pointer;
+}
+
+.tiptap ul[data-type='taskList'] ul[data-type='taskList'] {
+    margin: 0;
+}
+
+
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

@@ -43,10 +43,9 @@ Route::get('/u/{username}', function (Content $content) {
     ]);
 })->name('user.profile');
 
-// just for testing
+// this is just a playground
 Route::get('/test', function () {
-    Mail::to('delivered@resend.dev')->send(new TestMail());
-    return 'Email sent';
+    return Inertia::render('somethingh');
 })->name('test');
 
 

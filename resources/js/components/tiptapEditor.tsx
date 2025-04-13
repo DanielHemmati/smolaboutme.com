@@ -1,10 +1,14 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useForm } from '@inertiajs/react';
+import { Color } from '@tiptap/extension-color';
 import Placeholder from '@tiptap/extension-placeholder';
-import Underline from '@tiptap/extension-underline'
+import TaskItem from '@tiptap/extension-task-item';
+import TaskList from '@tiptap/extension-task-list';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
 import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Bold, Italic, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
+import { Bold, CodeXml, Italic, Strikethrough, Underline as UnderlineIcon, ListTodo } from 'lucide-react';
 import { useEffect } from 'react';
 
 const content = `
@@ -43,6 +47,12 @@ export default function TiptapEditor() {
                 placeholder: 'Write something...',
             }),
             Underline,
+            Color,
+            TextStyle,
+            TaskList,
+            TaskItem.configure({
+                nested: true,
+            }),
         ],
         onUpdate: ({ editor }) => {
             setData('content', JSON.stringify(editor?.getJSON()));
@@ -86,7 +96,7 @@ export default function TiptapEditor() {
                         duration: [100, 200], // show and hide duration
                     }}
                     editor={editor}
-                    className="rounded-md p-1 shadow-lg dark:bg-[#242425]"
+                    className="rounded-md bg-white p-1 shadow-lg dark:bg-[#242425]"
                 >
                     <div className="flex items-center gap-2">
                         <TooltipProvider>
@@ -125,6 +135,22 @@ export default function TiptapEditor() {
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <button
+                                        onClick={() => editor.chain().focus().toggleUnderline().run()}
+                                        className={`${editor.isActive('underline') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                    >
+                                        <UnderlineIcon className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Underline</p>
+                                    <span className="text-xs text-gray-500">Ctrl + U</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
                                         onClick={() => editor.chain().focus().toggleStrike().run()}
                                         className={`${editor.isActive('strike') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
@@ -141,15 +167,32 @@ export default function TiptapEditor() {
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <button
-                                        onClick={() => editor.chain().focus().toggleUnderline().run()}
-                                        className={`${editor.isActive('underline') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                        onClick={() => editor.chain().focus().toggleCode().run()}
+                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
-                                        <UnderlineIcon className="h-4 w-4" />
+                                        <CodeXml className="h-4 w-4" />
                                     </button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Underline</p>
-                                    <span className="text-xs text-gray-500">Ctrl + U</span>
+                                    <p>Code</p>
+                                    <span className="text-xs text-gray-500">Ctrl + E</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleTaskList().run()}
+                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                    >
+                                        <ListTodo className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Task List</p>
+                                    {/* TODO: shortcut is not working */}
+                                    {/* <span className="text-xs text-gray-500">Ctrl + Shift + 9</span> */}
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
