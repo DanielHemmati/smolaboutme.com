@@ -45,6 +45,7 @@ export default function Register() {
                 tabIndex={6}
                 href={route('auth.github')}
             >
+                {/* TODO: fix this we don't need this */}
                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                 <GithubIcon />
                 Register with Github

@@ -1,4 +1,4 @@
-import Editor from '@/components/editor';
+import Editor from '@/components/tiptapEditor';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useInitials } from '@/hooks/use-initials';

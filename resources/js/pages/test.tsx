@@ -1,4 +1,4 @@
-import Editor from '@/components/editor';
+import Editor from '@/components/tiptapEditor';
 // import LearnTiptap from "@/components/playground/learn-tiptap";
 
 function Test() {

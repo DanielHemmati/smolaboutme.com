@@ -42,10 +42,10 @@ export default function TiptapEditor() {
                 placeholder: 'Write something...',
             }),
         ],
-        // content: '',
         onUpdate: ({ editor }) => {
             setData('content', JSON.stringify(editor?.getJSON()));
         },
+        content,
         editable: true,
     });
 

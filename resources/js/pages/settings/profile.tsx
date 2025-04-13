@@ -65,8 +65,8 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         href={route('user.editor', { username: auth.user.name.toLowerCase() })}
                         className="group flex items-center"
                     >
-                        <ArrowLeft className="mr-2 size-4 group-hover:dark:text-white/80 dark:text-white" />
-                        <span className="dark:text-[#d4d4d4] group-hover:dark:text-white/80 text-black text-sm"> Back to Dashboard </span>
+                        <ArrowLeft className="mr-2 size-4 dark:text-white group-hover:dark:text-white/80" />
+                        <span className="text-sm text-black dark:text-[#d4d4d4] group-hover:dark:text-white/80"> Back to Dashboard </span>
                     </Link>
                 </div>
 
@@ -98,7 +98,9 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                             className="object-cover"
                                         />
                                     )}
-                                    <AvatarFallback>{getInitials(auth.user.name)}</AvatarFallback>
+                                    <AvatarFallback className="dark:border dark:border-white/50 dark:text-white">
+                                        {getInitials(auth.user.name)}
+                                    </AvatarFallback>
                                     {/* testing */}
                                     {progress && (
                                         <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black opacity-50">
@@ -123,11 +125,16 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                         <div className="flex w-2/3 flex-col gap-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="name" className="dark:text-[#d4d4d4]">Name</Label>
+                                <Label
+                                    htmlFor="name"
+                                    className="dark:text-[#d4d4d4]"
+                                >
+                                    Name
+                                </Label>
 
                                 <Input
                                     id="name"
-                                    className="mt-1 block w-full placeholder:dark:text-white/30 dark:text-[#d4d4d4]"
+                                    className="mt-1 block w-full dark:text-[#d4d4d4] placeholder:dark:text-white/30"
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                     required
@@ -142,12 +149,17 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email" className="dark:text-[#d4d4d4]">Email address</Label>
+                                <Label
+                                    htmlFor="email"
+                                    className="dark:text-[#d4d4d4]"
+                                >
+                                    Email address
+                                </Label>
 
                                 <Input
                                     id="email"
                                     type="email"
-                                    className="mt-1 block w-full dark:placeholder:text-white/30 dark:text-[#d4d4d4]"
+                                    className="mt-1 block w-full dark:text-[#d4d4d4] dark:placeholder:text-white/30"
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
                                     required
@@ -162,7 +174,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                                 href={route('verification.send')}
                                                 method="post"
                                                 as="button"
-                                                className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500 dark:text-[#d4d4d4]"
+                                                className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:text-[#d4d4d4] dark:decoration-neutral-500"
                                             >
                                                 Click here to resend the verification email.
                                             </Link>
@@ -213,7 +225,9 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     className="object-cover"
                                     src={auth.user.avatar_url}
                                 />
-                                <AvatarFallback>{getInitials(auth.user.name)}</AvatarFallback>
+                                <AvatarFallback className="dark:border dark:border-white/50 dark:text-white">
+                                    {getInitials(auth.user.name)}
+                                </AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent

@@ -1,4 +1,4 @@
-import TiptapEditor from '@/components/editor';
+import TiptapEditor from '@/components/tiptapEditor';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useInitials } from '@/hooks/use-initials';
@@ -22,7 +22,9 @@ export default function EditorPage() {
                     <DropdownMenuTrigger asChild>
                         <Avatar className="cursor-pointer">
                             <AvatarImage src={auth.user.avatar_url} />
-                            <AvatarFallback>{getInitials(auth.user.name)}</AvatarFallback>
+                            <AvatarFallback className="dark:border dark:border-white/50 dark:text-white">
+                                {getInitials(auth.user.name)}
+                            </AvatarFallback>
                         </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent

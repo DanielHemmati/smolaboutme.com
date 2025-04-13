@@ -21,26 +21,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+
     Route::get('/u/{username}/editor', function ($username) {
-        User::where('name', $username)->firstOrFail();
+        $user = User::where('name', $username)->firstOrFail();
+
+        // TODO: this doesn't makes much sense tbh. it's good for now
+        if ($user->id !== Auth::user()->id) {
+            return redirect()->route('user.profile', ['username' => $username]);
+        }
+
         return Inertia::render('user/editor');
     })->name('user.editor');
 
-    Route::get('/u/{username}', function (Content $content) {
-        return Inertia::render('user/profile', [
-            'content' => $content,
-        ]);
-    })->name('user.profile');
+    Route::post('content', [ContentController::class, 'store'])->name('content.store');
 });
 
+// everyone can see what other user has written
+Route::get('/u/{username}', function (Content $content) {
+    return Inertia::render('user/profile', [
+        'content' => $content,
+    ]);
+})->name('user.profile');
+
+// just for testing
 Route::get('/test', function () {
     Mail::to('delivered@resend.dev')->send(new TestMail());
     return 'Email sent';
 })->name('test');
 
-// all of this route should be in auth middleware
-Route::post('content', [ContentController::class, 'store'])->name('content.store');
-Route::get('content/{content}', [ContentController::class, 'show'])->name('content.show');
 
 
 require __DIR__ . '/settings.php';

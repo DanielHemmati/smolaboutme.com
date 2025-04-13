@@ -2,6 +2,7 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Content } from '@/types';
 
+// This is where we show the content of the user
 function Show({ content }: { content: Content }) {
     const editor = useEditor({
         extensions: [StarterKit],
