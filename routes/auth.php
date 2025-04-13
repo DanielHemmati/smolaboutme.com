@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 Route::middleware('guest')->group(function () {
     Route::get('/auth/redirect', function () {
@@ -24,7 +25,8 @@ Route::middleware('guest')->group(function () {
         $user = User::updateOrCreate([
             'github_id' => $githubUser->id,
         ], [
-            'name' => $githubUser->name,
+            // TODO: make sure this is correct to do
+            'name' => Str::lower($githubUser->name),
             'email' => $githubUser->email,
             'github_token' => $githubUser->token,
             'github_refresh_token' => $githubUser->refreshToken,
@@ -33,7 +35,7 @@ Route::middleware('guest')->group(function () {
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect()->route('user.editor', ['username' => $user->name]);
     });
 
     Route::get('register', [RegisteredUserController::class, 'create'])
