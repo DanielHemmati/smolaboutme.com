@@ -1,7 +1,7 @@
 import { type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { ImageUp, Loader2, LogOut, User  } from 'lucide-react';
+import { ImageUp, Loader2, LogOut, User } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 
 // import DeleteUser from '@/components/delete-user';
@@ -143,6 +143,27 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     autoComplete="username"
                                     placeholder="Email address"
                                 />
+                                {mustVerifyEmail && auth.user.email_verified_at === null && (
+                                    <div className="mt-2 ">
+                                        <p className="text-muted-foreground text-sm">
+                                            Your email address is unverified.{' '}
+                                            <Link
+                                                href={route('verification.send')}
+                                                method="post"
+                                                as="button"
+                                                className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                            >
+                                                Click here to resend the verification email.
+                                            </Link>
+                                        </p>
+
+                                        {status === 'verification-link-sent' && (
+                                            <div className="mt-2 text-sm font-medium text-green-600">
+                                                A new verification link has been sent to your email address.
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
 
                                 <InputError
                                     className="mt-2"
@@ -169,28 +190,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 </Transition>
                             </div>
                         </div>
-
-                        {mustVerifyEmail && auth.user.email_verified_at === null && (
-                            <div>
-                                <p className="text-muted-foreground -mt-4 text-sm">
-                                    Your email address is unverified.{' '}
-                                    <Link
-                                        href={route('verification.send')}
-                                        method="post"
-                                        as="button"
-                                        className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
-                                    >
-                                        Click here to resend the verification email.
-                                    </Link>
-                                </p>
-
-                                {status === 'verification-link-sent' && (
-                                    <div className="mt-2 text-sm font-medium text-green-600">
-                                        A new verification link has been sent to your email address.
-                                    </div>
-                                )}
-                            </div>
-                        )}
                     </form>
                 </div>
 
@@ -199,7 +198,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Avatar className="cursor-pointer">
-                                <AvatarImage src={auth.user.avatar_url} />
+                                <AvatarImage className="object-cover" src={auth.user.avatar_url} />
                                 <AvatarFallback>{getInitials(auth.user.name)}</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>

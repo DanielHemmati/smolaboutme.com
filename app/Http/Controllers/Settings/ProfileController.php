@@ -27,6 +27,8 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile settings.
+     * TODO: This doesn't feel right. it should be better
+     * but it does work for now
      */
     public function update(Request $request): RedirectResponse
     {
@@ -37,19 +39,23 @@ class ProfileController extends Controller
             'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
+
         if ($request->hasFile('avatar_url')) {
             $filePath = Storage::disk('r2')->put('avatars', $request->file('avatar_url'));
             $fileUrl = Storage::url($filePath);
             $validated['avatar_url'] = $fileUrl;
+        } else {
+            unset($validated['avatar_url']);
         }
 
-        $request->user()->fill($validated);
+        $user = $request->user();
+        $user->fill($validated);
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
-        User::where('id', $request->user()->id)->update($validated);
+        $user->save();
 
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
