@@ -28,7 +28,7 @@
 }
 
 .tiptap pre {
-    @apply rounded-sm bg-gray-100 p-2;
+    @apply rounded-sm bg-gray-100 p-2 dark:bg-[#242425];
 }
 
 .tiptap ul {
