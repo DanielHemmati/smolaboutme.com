@@ -1,6 +1,7 @@
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import {LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
+import GithubIcon from '@/components/icons/GithubIcons';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
+import Hr from '@/components/ui/Hr';
 
 type RegisterForm = {
     name: string;
@@ -34,9 +36,22 @@ export default function Register() {
     return (
         <AuthLayout
             title="Create an account"
-            description="Enter your details below to create your account"
+            description="Register with github or email"
         >
             <Head title="Register" />
+            <a
+                type="submit"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
+                tabIndex={4}
+                href={route('auth.github')}
+            >
+                {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                <GithubIcon />
+                Register with Github
+            </a>
+
+            <Hr />
+
             <form
                 className="flex flex-col gap-6"
                 onSubmit={submit}
