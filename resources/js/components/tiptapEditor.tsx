@@ -204,7 +204,7 @@ const TipTapEditorForm = memo(
                 method="post"
             >
                 <Button
-                    className={`absolute top-2 right-12 rounded-md dark:bg-white dark:text-black ${processing ? 'cursor-not-allowed opacity-50' : ''}`}
+                    className={`absolute top-6 right-12 rounded-md dark:bg-white dark:text-black ${processing ? 'cursor-not-allowed opacity-50' : ''}`}
                     type="submit"
                     variant="outline"
                     disabled={processing}

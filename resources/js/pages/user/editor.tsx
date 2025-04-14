@@ -13,56 +13,58 @@ export default function EditorPage({ content }: { content: Content }) {
     return (
         <div className="relative container mx-auto">
             <Head title={`${auth.user.name} - smol page`} />
-            <Link href={route('home')}>
-                <img
-                    src="/images/logo.png"
-                    alt="logo"
-                    className="h-20 w-20"
-                />
-            </Link>
+            <header className="flex items-center justify-between gap-4">
+                <Link href={route('home')}>
+                    <img
+                        src="/images/logo.png"
+                        alt="logo"
+                        className="h-20 w-20"
+                    />
+                </Link>
+                <div>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Avatar className="cursor-pointer">
+                                <AvatarImage src={auth.user.avatar_url} />
+                                <AvatarFallback className="dark:border dark:border-white/50 dark:text-white">
+                                    {getInitials(auth.user.name)}
+                                </AvatarFallback>
+                            </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+                            align="end"
+                        >
+                            {/* i don't know if there is a better for this or not */}
+                            <DropdownMenuItem className="hover:!bg-transparent">
+                                <span className="text-muted-foreground truncate text-xs select-text">{auth.user.email}</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link
+                                    className="cursor-pointer"
+                                    href={route('profile.edit')}
+                                >
+                                    <User className="mr-2 size-4" />
+                                    Profile
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link
+                                    className="w-full cursor-pointer"
+                                    href={route('logout')}
+                                    method="post"
+                                >
+                                    <LogOut className="mr-2 size-4" />
+                                    Logout
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+            </header>
             {/* TODO: check if this color will effect the editor or not */}
             <div className="mx-auto mt-10 max-w-[600px] pt-20 text-black dark:text-[#d4d4d4]">
                 <TiptapEditor content={content} />
-            </div>
-            <div className="absolute top-2 right-2">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Avatar className="cursor-pointer">
-                            <AvatarImage src={auth.user.avatar_url} />
-                            <AvatarFallback className="dark:border dark:border-white/50 dark:text-white">
-                                {getInitials(auth.user.name)}
-                            </AvatarFallback>
-                        </Avatar>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-                        align="end"
-                    >
-                        {/* i don't know if there is a better for this or not */}
-                        <DropdownMenuItem className="hover:!bg-transparent">
-                            <span className="text-muted-foreground truncate text-xs select-text">{auth.user.email}</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link
-                                className="cursor-pointer"
-                                href={route('profile.edit')}
-                            >
-                                <User className="mr-2 size-4" />
-                                Profile
-                            </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link
-                                className="w-full cursor-pointer"
-                                href={route('logout')}
-                                method="post"
-                            >
-                                <LogOut className="mr-2 size-4" />
-                                Logout
-                            </Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
             </div>
         </div>
     );

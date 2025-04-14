@@ -5,23 +5,13 @@ use Inertia\Inertia;
 use App\Models\Content;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ContentController;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\TestMail;
-// use TipTap\Editor;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-
-
     Route::get('/u/{username}/editor', function ($username) {
         $user = User::where('name', $username)->firstOrFail();
 
@@ -45,24 +35,11 @@ Route::get('/u/{username}', function (Content $content, $username) {
     $user = User::where('name', $username)->firstOrFail();
     $content = Content::where('user_id', $user->id)->first();
 
-    // dd($content->content["content"][0]["type"] === "paragraph");
-    // if (!$content) {
-    //     return redirect()->route('welcome');
-    // }
-
     return Inertia::render('user/profile', [
         'content' => $content,
         'owner' => $user,
     ]);
 })->name('user.profile');
-
-// this is just a playground
-Route::get('/test', function () {
-    return Inertia::render('something', [
-        'content' => 'daniel',
-    ]);
-})->name('test');
-
 
 
 require __DIR__ . '/settings.php';
