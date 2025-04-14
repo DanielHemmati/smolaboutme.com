@@ -2,11 +2,11 @@ import TiptapEditor from '@/components/tiptapEditor';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useInitials } from '@/hooks/use-initials';
-import { SharedData } from '@/types';
+import { Content, SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { LogOut, User } from 'lucide-react';
 
-export default function EditorPage() {
+export default function EditorPage({ content }: { content: Content }) {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
 
@@ -15,7 +15,7 @@ export default function EditorPage() {
             <Head title={`${auth.user.name} - smol page`} />
             {/* TODO: check if this color will effect the editor or not */}
             <div className="mx-auto mt-10 max-w-[600px] pt-20 dark:text-[#d4d4d4] text-black">
-                <TiptapEditor />
+                <TiptapEditor content={content} />
             </div>
             <div className="absolute top-2 right-2">
                 <DropdownMenu>

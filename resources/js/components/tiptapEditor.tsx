@@ -1,4 +1,6 @@
+import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Content } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { Color } from '@tiptap/extension-color';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -6,12 +8,13 @@ import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
 import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
-import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
+import { BubbleMenu, Editor, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Bold, CodeXml, Italic, Strikethrough, Underline as UnderlineIcon, ListTodo } from 'lucide-react';
-import { useEffect } from 'react';
+import { Bold, CodeXml, Italic, ListTodo, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
+import { memo, useEffect } from 'react';
+import { debounce } from 'lodash';
 
-const content = `
+const ExampleContent = `
 <h2>
   Hello wip,
 </h2>
@@ -39,12 +42,13 @@ const content = `
 </blockquote>
 `;
 
-export default function TiptapEditor() {
+export default function TiptapEditor({ content }: { content: Content }) {
     const editor = useEditor({
         extensions: [
             StarterKit,
             Placeholder.configure({
-                placeholder: 'Write something...',
+                placeholder: 'Write, hover over text to see options',
+                emptyEditorClass: 'is-empty'
             }),
             Underline,
             Color,
@@ -54,26 +58,25 @@ export default function TiptapEditor() {
                 nested: true,
             }),
         ],
+        content: content?.content ?? ExampleContent,
         onUpdate: ({ editor }) => {
-            setData('content', JSON.stringify(editor?.getJSON()));
+            // const
+            // setData('content', JSON.stringify(editor?.getJSON()));
+            deboncedUpdate(editor);
         },
-        content,
         editable: true,
     });
+
+    const deboncedUpdate = debounce((editor: Editor) => {
+        const jsoncontent = editor.getJSON();
+        setData('content', JSON.stringify(jsoncontent));
+    }, 1000);
 
     useEffect(() => {
         if (editor) {
             editor.commands.focus();
         }
     }, [editor]);
-
-    // this part make the editor editable or read only
-    // const [isEditable, setIsEditable] = useState(true);
-    // useEffect(() => {
-    //     if (editor) {
-    //         editor.setEditable(isEditable);
-    //     }
-    // }, [editor, isEditable]);
 
     const { post, processing, setData } = useForm({
         content: '',
@@ -82,9 +85,21 @@ export default function TiptapEditor() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (editor) {
-            const jsonContent = editor?.getJSON();
-            setData('content', JSON.stringify(jsonContent));
-            post(route('content.store'));
+            const jsonContent = editor.getJSON();
+            const isEmpty = jsonContent?.content?.length === 1 && jsonContent.content[0].type === 'paragraph' && !jsonContent.content[0].content;
+            if (isEmpty) {
+                alert('empty');
+                return;
+            }
+            post(route('content.store'), {
+                onSuccess: () => {
+                    console.log('success');
+                    window.location.reload();
+                },
+                onError: (error) => {
+                    console.log(error);
+                },
+            });
         }
     };
 
@@ -206,26 +221,32 @@ export default function TiptapEditor() {
                 className="focus:outline-none"
             />
 
-            {/* <form
+            <TipTapEditorForm
+                handleSubmit={handleSubmit}
+                processing={processing}
+            />
+        </>
+    );
+}
+
+// TODO: test this.
+const TipTapEditorForm = memo(
+    ({ handleSubmit, processing }: { handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void; processing: boolean }) => {
+        return (
+            <form
                 onSubmit={handleSubmit}
                 action={route('content.store')}
                 method="post"
             >
-                <EditorContent
-                    editor={editor}
-                    className="focus:outline-none"
-                />
-
-
-                <button
-                    // className="absolute top-2 right-2 rounded-md bg-blue-500 px-4 py-2 text-white"
-                    className={`absolute top-2 right-2 rounded-md bg-blue-500 px-4 py-2 text-white ${processing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                <Button
+                    className={`absolute top-2 right-12 rounded-md dark:bg-white dark:text-black ${processing ? 'cursor-not-allowed opacity-50' : ''}`}
                     type="submit"
+                    variant="outline"
                     disabled={processing}
                 >
-                    save
-                </button>
-            </form> */}
-        </>
-    );
-}
+                    Publish
+                </Button>
+            </form>
+        );
+    },
+);

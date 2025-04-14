@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
-export default function Something() {
+export default function Something({ content }: { content: string }) {
+    console.log(content);
     return (
         <div className="debug flex h-screen items-center justify-center dark:text-white">
             <HoverCard

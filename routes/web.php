@@ -30,14 +30,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return redirect()->route('user.profile', ['username' => $username]);
         }
 
-        return Inertia::render('user/editor');
+        $content = Content::where('user_id', $user->id)->first();
+
+        return Inertia::render('user/editor', [
+            'content' => $content,
+        ]);
     })->name('user.editor');
 
     Route::post('content', [ContentController::class, 'store'])->name('content.store');
+    // Route::get('content', [ContentController::class, 'show'])->name('content.show');
 });
 
 // everyone can see what other user has written
-Route::get('/u/{username}', function (Content $content) {
+Route::get('/u/{username}', function (Content $content, $username) {
+    $user = User::where('name', $username)->firstOrFail();
+    $content = Content::where('user_id', $user->id)->first();
+
+    // dd($content->content["content"][0]["type"] === "paragraph");
+    // if (!$content) {
+    //     return redirect()->route('welcome');
+    // }
+
     return Inertia::render('user/profile', [
         'content' => $content,
     ]);
@@ -45,7 +58,9 @@ Route::get('/u/{username}', function (Content $content) {
 
 // this is just a playground
 Route::get('/test', function () {
-    return Inertia::render('somethingh');
+    return Inertia::render('something', [
+        'content' => 'daniel',
+    ]);
 })->name('test');
 
 
