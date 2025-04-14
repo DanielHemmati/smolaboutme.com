@@ -13,8 +13,15 @@ export default function EditorPage({ content }: { content: Content }) {
     return (
         <div className="relative container mx-auto">
             <Head title={`${auth.user.name} - smol page`} />
+            <Link href={route('home')}>
+                <img
+                    src="/images/logo.png"
+                    alt="logo"
+                    className="h-20 w-20"
+                />
+            </Link>
             {/* TODO: check if this color will effect the editor or not */}
-            <div className="mx-auto mt-10 max-w-[600px] pt-20 dark:text-[#d4d4d4] text-black">
+            <div className="mx-auto mt-10 max-w-[600px] pt-20 text-black dark:text-[#d4d4d4]">
                 <TiptapEditor content={content} />
             </div>
             <div className="absolute top-2 right-2">
@@ -46,7 +53,7 @@ export default function EditorPage({ content }: { content: Content }) {
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
                             <Link
-                                className="cursor-pointer w-full"
+                                className="w-full cursor-pointer"
                                 href={route('logout')}
                                 method="post"
                             >

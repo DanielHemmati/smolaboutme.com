@@ -17,7 +17,16 @@ export default function Welcome() {
                 />
             </Head>
             <div className="container mx-auto bg-[#FDFDFC] p-6 text-[#1b1b18] dark:bg-[#191919]">
-                <header className="mb-6 w-full text-sm not-has-[nav]:hidden">
+                <header className="mb-6 flex w-full items-center justify-between text-sm not-has-[nav]:hidden">
+                    <div className="flex items-center justify-end gap-4">
+                        <Link href={route('home')}>
+                            <img
+                                src="/images/logo.png"
+                                alt="logo"
+                                className="h-20 w-20"
+                            />
+                        </Link>
+                    </div>
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
                             <Link

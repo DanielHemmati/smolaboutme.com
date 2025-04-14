@@ -10,37 +10,10 @@ import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import { BubbleMenu, Editor, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { debounce } from 'lodash';
 import { Bold, CodeXml, Italic, ListTodo, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
 import { memo, useEffect } from 'react';
-import { debounce } from 'lodash';
 
-const ExampleContent = `
-<h2>
-  Hello wip,
-</h2>
-<p>
-  this is a <em>basic</em> example of <strong>smolaboutme.com</strong>. I am using tiptap to create a simple text editor. Some stuff are paid i have to build them myself
-</p>
-<ul>
-  <li>
-    That's a bullet list with one …
-  </li>
-  <li>
-    … or two list items.
-  </li>
-</ul>
-<p>
-  Isn't that great? And all of that is editable. But wait, there's more. Let's try a code block:
-</p>
-<pre><code class="language-css">body {
-  display: none;
-}</code></pre>
-<blockquote>
-  You once told me that the human eye is God's loneliest creation. How so much of the world passes through the pupil and still it holds nothing.
-  <br />
-  ~ Ocean Vuong, On Earth We're Briefly Gorgeous
-</blockquote>
-`;
 
 export default function TiptapEditor({ content }: { content: Content }) {
     const editor = useEditor({
@@ -48,7 +21,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
             StarterKit,
             Placeholder.configure({
                 placeholder: 'Write, hover over text to see options',
-                emptyEditorClass: 'is-empty'
+                emptyEditorClass: 'is-empty',
             }),
             Underline,
             Color,
@@ -58,10 +31,8 @@ export default function TiptapEditor({ content }: { content: Content }) {
                 nested: true,
             }),
         ],
-        content: content?.content ?? ExampleContent,
+        content: content?.content,
         onUpdate: ({ editor }) => {
-            // const
-            // setData('content', JSON.stringify(editor?.getJSON()));
             deboncedUpdate(editor);
         },
         editable: true,
@@ -85,15 +56,9 @@ export default function TiptapEditor({ content }: { content: Content }) {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (editor) {
-            const jsonContent = editor.getJSON();
-            const isEmpty = jsonContent?.content?.length === 1 && jsonContent.content[0].type === 'paragraph' && !jsonContent.content[0].content;
-            if (isEmpty) {
-                alert('empty');
-                return;
-            }
+            console.log(editor.getJSON());
             post(route('content.store'), {
                 onSuccess: () => {
-                    console.log('success');
                     window.location.reload();
                 },
                 onError: (error) => {
