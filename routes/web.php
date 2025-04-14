@@ -38,7 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('user.editor');
 
     Route::post('content', [ContentController::class, 'store'])->name('content.store');
-    // Route::get('content', [ContentController::class, 'show'])->name('content.show');
 });
 
 // everyone can see what other user has written
@@ -53,6 +52,7 @@ Route::get('/u/{username}', function (Content $content, $username) {
 
     return Inertia::render('user/profile', [
         'content' => $content,
+        'owner' => $user,
     ]);
 })->name('user.profile');
 
