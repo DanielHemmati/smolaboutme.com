@@ -1,7 +1,7 @@
 import { type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { ArrowLeft, ImageUp, Loader2, LogOut, User } from 'lucide-react';
+import { ArrowLeft, ImageUp, Loader2 } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 
 // import DeleteUser from '@/components/delete-user';
@@ -10,10 +10,10 @@ import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useInitials } from '@/hooks/use-initials';
+import Layout from '@/layouts/layout';
 
 type ProfileForm = {
     name: string;
@@ -21,6 +21,7 @@ type ProfileForm = {
     avatar_url: string | File | null;
 };
 
+// this is the setting page of the user
 export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
@@ -56,61 +57,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
     };
 
     return (
-        <div className="relative container mx-auto">
-            <header className="flex items-center justify-between gap-4">
-                <Link href={route('home')}>
-                    <img
-                        src="/images/logo.png"
-                        alt="logo"
-                        className="h-20 w-20"
-                    />
-                </Link>
-                {/* TODO: this should be an layout component */}
-                <div>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Avatar className="cursor-pointer">
-                                <AvatarImage
-                                    className="object-cover"
-                                    src={auth.user.avatar_url}
-                                />
-                                <AvatarFallback className="dark:border dark:border-white/50 dark:text-white">
-                                    {getInitials(auth.user.name)}
-                                </AvatarFallback>
-                            </Avatar>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-                            align="end"
-                        >
-                            {/* i don't know if there is a better for this or not */}
-                            <DropdownMenuItem className="hover:!bg-transparent">
-                                <span className="text-muted-foreground truncate text-xs select-text">{auth.user.email}</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                                <Link
-                                    className="cursor-pointer"
-                                    href={route('profile.edit')}
-                                >
-                                    <User className="mr-2 size-4" />
-                                    Profile
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                                <Link
-                                    className="w-full cursor-pointer"
-                                    href={route('logout')}
-                                    method="post"
-                                >
-                                    <LogOut className="mr-2 size-4" />
-                                    Logout
-                                </Link>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            </header>
-
+        <Layout checkUser={true}>
             <div className="mx-auto mt-10 max-w-[600px] pt-20">
                 <Head title="Profile settings" />
                 <div className="mb-6">
@@ -272,6 +219,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 {/* TODO: delete user base on oauth and normal sign up stuff */}
                 {/* <DeleteUser /> */}
             </div>
-        </div>
+            {/* </div> */}
+        </Layout>
     );
 }
