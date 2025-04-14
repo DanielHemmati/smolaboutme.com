@@ -11,6 +11,55 @@
     @apply border border-red-500;
 }
 
+/* <what to show when editor is empty> */
+/* for showing placeholder text when editor is empty */
+/* it can be better */
+.is-empty::before {
+    content: attr(data-placeholder);
+    color: #6a7282;
+}
+
+h1.is-empty::before {
+    content: 'Heading  1';
+    @apply text-gray-500 pointer-events-none;
+}
+
+h2.is-empty::before {
+    content: 'Heading  2';
+    @apply text-gray-500 pointer-events-none;
+}
+}
+
+h3.is-empty::before {
+    content: 'Heading  3';
+    @apply text-gray-500 pointer-events-none;
+}
+
+h4.is-empty::before {
+    content: 'Heading  4';
+    @apply text-gray-500 pointer-events-none;
+}
+
+h5.is-empty::before {
+    content: 'Heading  5';
+    @apply text-gray-500 pointer-events-none;
+}
+
+h6.is-empty::before {
+    content: 'Heading  6';
+    @apply text-gray-500 pointer-events-none;
+}
+
+ul.is-empty::before {
+    @apply content-['List'] pointer-events-none text-gray-500;
+}
+
+ol.is-empty::before {
+    @apply content-['List'] pointer-events-none text-gray-500;
+}
+
+/* <what to show when editor is empty/> */
+
 .ProseMirror:focus {
     outline: none;
 }
@@ -94,7 +143,6 @@
 .tiptap ul[data-type='taskList'] ul[data-type='taskList'] {
     margin: 0;
 }
-
 
 @theme {
     --font-sans:
