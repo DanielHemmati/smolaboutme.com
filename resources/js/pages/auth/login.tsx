@@ -45,7 +45,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <Head title="Log in" />
             <a
                 type="submit"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
+                className="inline-flex h-9 cursor-pointer bg-purple-500 hover:bg-purple-600 text-white items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
                 tabIndex={5}
                 href={route('auth.github')}
             >
@@ -134,7 +134,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                     <Button
                         type="submit"
-                        className="mt-4 w-full"
+                        className="mt-4 w-full bg-purple-500 hover:bg-purple-600 dark:text-white"
                         tabIndex={4}
                         disabled={processing}
                     >

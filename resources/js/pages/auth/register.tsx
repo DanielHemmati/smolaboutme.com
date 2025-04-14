@@ -1,15 +1,15 @@
-import { Head, useForm } from '@inertiajs/react';
-import {LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
 import GithubIcon from '@/components/icons/GithubIcons';
+import { Head, useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
+import Hr from '@/components/ui/Hr';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import Hr from '@/components/ui/Hr';
 
 type RegisterForm = {
     name: string;
@@ -41,7 +41,7 @@ export default function Register() {
             <Head title="Register" />
             <a
                 type="submit"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 cursor-default items-center justify-center gap-2 rounded-md px-4 py-2 shadow-xs has-[>svg]:px-3"
+                className="inline-flex h-9 cursor-pointer items-center justify-center gap-2 rounded-md bg-purple-500 px-4 py-2 text-white shadow-xs hover:bg-purple-600 has-[>svg]:px-3"
                 tabIndex={6}
                 href={route('auth.github')}
             >
@@ -152,7 +152,7 @@ export default function Register() {
 
                     <Button
                         type="submit"
-                        className="mt-2 w-full"
+                        className="mt-2 w-full bg-purple-500 hover:bg-purple-600 dark:text-white"
                         tabIndex={5}
                         disabled={processing}
                     >

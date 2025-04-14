@@ -28,7 +28,6 @@ h2.is-empty::before {
     content: 'Heading  2';
     @apply text-gray-500 pointer-events-none;
 }
-}
 
 h3.is-empty::before {
     content: 'Heading  3';
