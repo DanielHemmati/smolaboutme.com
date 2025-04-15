@@ -47,7 +47,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
     });
 
     // for showing character count
-    const percentage = editor ? Math.round((100 / limit) * editor.storage.characterCount.characters()) : 0;
+    // const percentage = editor ? Math.round((100 / limit) * editor.storage.characterCount.characters()) : 0;
 
     const deboncedUpdate = debounce((editor: Editor) => {
         const jsoncontent = editor.getJSON();
