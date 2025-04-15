@@ -89,7 +89,8 @@ export default function Welcome() {
                                         <Link
                                             key={id}
                                             className="rounded-lg bg-white p-6 shadow-md transition-all duration-150 hover:shadow-xl dark:bg-neutral-800"
-                                            href={route('user.profile', { username: name })}
+                                            // href={route('user.profile', { username: name })}
+                                            href='#'
                                         >
                                             <div className="mb-4 flex h-50 items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
                                                 <img
@@ -145,6 +146,8 @@ export default function Welcome() {
                                                 <li>Notion-like editor</li>
                                                 <li>2000 characters limit</li>
                                                 <li>Shareable link</li>
+                                                <li>Add Links (coming soon)</li>
+                                                <li>Add youtube, spotify, twitter, ... (coming soon)</li>
                                             </ul>
                                         </div>
                                     </div>
