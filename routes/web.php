@@ -13,7 +13,7 @@ Route::get('/', function () {
         $query->select('id', 'content', 'user_id')->oldest()->first();
     }])->select('id', 'name', 'avatar_url')->get();
 
-    dd($userContent);
+    // dd($userContent);
 
     return Inertia::render('welcome', [
         'userContent' => $userContent,
