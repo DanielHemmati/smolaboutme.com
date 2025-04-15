@@ -237,7 +237,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
                 <div
                     className={`character-count ${editor.storage.characterCount.characters() === limit ? 'character-count--warning' : ''} absolute top-2 right-[200px]`}
                 >
-                    <svg
+                    {/* <svg
                         height="20"
                         width="20"
                         viewBox="0 0 20 20"
@@ -262,9 +262,9 @@ export default function TiptapEditor({ content }: { content: Content }) {
                             r="6"
                             cx="10"
                             cy="10"
-                            fill="white"
+                            fill="white dark:fill-black"
                         />
-                    </svg>
+                    </svg> */}
                     {editor.storage.characterCount.characters()} / {limit}
                     {/* <br /> */}
                     {/* {editor.storage.characterCount.words()} words */}
@@ -336,7 +336,7 @@ const SharePopOver = ({ username }: { username: string }) => {
                             <a
                                 href={route('user.profile', { username })}
                                 target="_blank"
-                                className="text-sm text-gray-800"
+                                className="text-sm text-gray-800 dark:text-[#d4d4d4]"
                             >
                                 https://smolaboutme.com/u/{username}
                             </a>

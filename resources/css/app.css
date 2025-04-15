@@ -186,6 +186,7 @@ ol.is-empty::before {
  .character-count svg {
 	 color: var(--purple);
 }
+
  .character-count--warning, .character-count--warning svg {
 	 color: var(--red);
 }
