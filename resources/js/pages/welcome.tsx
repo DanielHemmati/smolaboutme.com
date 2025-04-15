@@ -34,7 +34,7 @@ export default function Welcome() {
                                 href={route('user.editor', { username: auth.user.name })}
                                 className="inline-block rounded-sm border border-purple-500 px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-purple-500 dark:text-[#EDEDEC] dark:hover:border-purple-700"
                             >
-                                Dashboard
+                                Editor
                             </Link>
                         ) : (
                             <>
@@ -111,7 +111,10 @@ export default function Welcome() {
                                     className="text-center text-gray-600 dark:text-gray-300"
                                     href="https://x.com/DaniellHemmati"
                                 >
-                                    Built with ❤️ by <span className="text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-500 font-bold underline">@DanielHemmati</span>
+                                    Built with ❤️ by{' '}
+                                    <span className="font-bold text-purple-500 underline hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-500">
+                                        @DanielHemmati
+                                    </span>
                                 </Link>
                             </div>
                         </footer>
