@@ -80,12 +80,12 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                             <div className="grid grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
                                 {userContent.map(({ id, name, avatar_url, content }) => {
                                     const truncatedContent =
-                                        content.content.length > 120
-                                            ? content.content
+                                        content?.content.length > 120
+                                            ? content?.content
                                                   .replace(/<h1.*?>.*?<\/h1>/g, '')
                                                   .replace(/\s+/g, ' ')
                                                   .slice(0, 120) + '...'
-                                            : content.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
+                                            : content?.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
                                     return (
                                         <Link
                                             key={id}
