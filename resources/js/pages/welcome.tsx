@@ -86,6 +86,7 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                                                   .replace(/\s+/g, ' ')
                                                   .slice(0, 120) + '...'
                                             : content?.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
+                                    console.log(truncatedContent);
                                     return (
                                         <Link
                                             key={id}
