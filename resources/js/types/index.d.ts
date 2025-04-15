@@ -50,3 +50,10 @@ export interface Content {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface UserContent {
+    id: number;
+    name: string;
+    avatar_url: string;
+    content: Content;
+}

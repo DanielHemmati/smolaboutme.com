@@ -1,10 +1,19 @@
 import AppearanceToggleTab from '@/components/appearance-tabs';
-import { type SharedData } from '@/types';
+import { UserContent, type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
+const someExmaple = [
+    {
+        id: 1,
+        name: 'John Doe',
+        avatar_url: 'https://via.placeholder.com/150',
+        content: 'This is a brief description of what the user has written about themselves. It can be a short bio or an interesting fact.',
+    },
+];
 
+export default function Welcome({ userContent }: { userContent: UserContent[] }) {
+    const { auth } = usePage<SharedData>().props;
+    console.log(userContent);
     return (
         <>
             <Head title="Welcome">
@@ -77,33 +86,109 @@ export default function Welcome() {
                                 These are some examples of what users have written about themselves.
                             </p>
                             <div className="grid grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
-                                {Array.from({ length: 6 }).map((_, index) => (
-                                    <Link
-                                        key={index}
-                                        className="rounded-lg bg-white p-6 shadow-md transition-all duration-150 hover:shadow-xl dark:bg-neutral-800"
-                                        href="#"
-                                    >
-                                        <div className="mb-4 flex h-40 items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
-                                            <span className="text-gray-500 dark:text-gray-400">Image Placeholder</span>
-                                        </div>
-                                        <h3 className="text-xl font-semibold text-gray-800 dark:text-white">User {index + 1}</h3>
-                                        <p className="mt-4 text-gray-600 dark:text-gray-300">
-                                            This is a brief description of what the user has written about themselves. It can be a short bio or an
-                                            interesting fact.
-                                        </p>
-                                    </Link>
-                                ))}
+                                {userContent.map(({ id, name, avatar_url, content }) => {
+                                    const truncatedContent =
+                                        content.content.length > 120
+                                            ? content.content
+                                                  .replace(/<h1.*?>.*?<\/h1>/g, '')
+                                                  .replace(/\s+/g, ' ')
+                                                  .slice(0, 120) + '...'
+                                            : content.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
+                                    return (
+                                        <Link
+                                            key={id}
+                                            className="rounded-lg bg-white p-6 shadow-md transition-all duration-150 hover:shadow-xl dark:bg-neutral-800"
+                                            href={route('user.profile', { username: name })}
+                                        >
+                                            <div className="mb-4 flex h-50 items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
+                                                <img
+                                                    src={avatar_url}
+                                                    alt={name}
+                                                    className={`h-full w-full object-cover ${name === 'David Kern' ? 'object-top' : ''} ${name === 'Ana Sofia Torres' ? 'object-top' : ''}`}
+                                                />
+                                            </div>
+                                            <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{name}</h3>
+                                            <div className="mt-4 text-gray-600 dark:text-gray-300">
+                                                <div
+                                                    className="truncate whitespace-pre-wrap"
+                                                    dangerouslySetInnerHTML={{ __html: truncatedContent }}
+                                                />
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
                             </div>
                             {/* TODO: create a template page */}
-                            <div className="mt-12 text-center">
+                            {/* <div className="mt-12 text-center">
                                 <Link
                                     className="rounded-full bg-purple-500 px-6 py-3 font-semibold text-white hover:bg-purple-600 dark:bg-purple-700 dark:hover:bg-purple-800"
                                     href="#"
                                 >
                                     Browse All Templates
                                 </Link>
+                            </div> */}
+                        </section>
+
+                        <section className="flex flex-col items-center p-8">
+                            <h1 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">Pricing</h1>
+                            <div className="flex justify-center space-x-8">
+                                <div className="max-w-sm overflow-hidden rounded-lg bg-white shadow-md dark:bg-neutral-800">
+                                    <div className="p-6">
+                                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Starter</h2>
+                                        <p className="mt-2 text-gray-600 dark:text-gray-300">Get started with a simple page</p>
+                                        <div className="mt-4">
+                                            <span className="text-4xl font-bold text-gray-800 dark:text-white">$0</span>
+                                            <span className="text-gray-600 dark:text-gray-300"> /month</span>
+                                        </div>
+                                        <div className="mt-6">
+                                            <Link
+                                                className="rounded-full bg-purple-500 px-6 py-3 font-semibold text-white hover:bg-purple-600 dark:bg-purple-700 dark:hover:bg-purple-800"
+                                                href={auth.user ? route('user.editor', { username: auth.user.name }) : route('register')}
+                                            >
+                                                Sign up
+                                            </Link>
+                                        </div>
+                                        <div className="mt-6">
+                                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Key Features</h3>
+                                            <ul className="mt-2 list-inside list-disc text-gray-600 dark:text-gray-300">
+                                                <li>Notion-like editor</li>
+                                                <li>Simple</li>
+                                                <li>Shareable link</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="max-w-sm overflow-hidden rounded-lg bg-white shadow-md dark:bg-neutral-800">
+                                    <div className="p-6">
+                                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Pro</h2>
+                                        <p className="mt-2 text-gray-600 dark:text-gray-300">Designed for advanced users</p>
+                                        <div className="mt-4">
+                                            <span className="text-4xl font-bold text-gray-800 dark:text-white">?</span>
+                                            <span className="text-gray-600 dark:text-gray-300"> /month</span>
+                                        </div>
+                                        <div className="mt-6">
+                                            <Link
+                                                className="rounded-full bg-gray-500 px-6 py-3 font-semibold text-white cursor-not-allowed"
+                                                href="#"
+                                                onClick={(e) => e.preventDefault()}
+                                            >
+                                                Sign up
+                                            </Link>
+                                        </div>
+                                        <div className="mt-6">
+                                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Future Features</h3>
+                                            <ul className="mt-2 list-inside list-disc text-gray-600 dark:text-gray-300">
+                                                <li>Everything from Starter</li>
+                                                <li>Add Domain (coming soon)</li>
+                                                <li>Customize your page (coming soon)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </section>
+
                         <footer className="py-10">
                             <div className="container mx-auto flex flex-col items-center justify-between px-6 md:flex-row">
                                 <AppearanceToggleTab className="mb-4 md:mb-0" />

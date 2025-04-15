@@ -56,7 +56,6 @@ export default function TiptapEditor({ content }: { content: Content }) {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (editor) {
-            console.log(editor.getJSON());
             post(route('content.store'), {
                 onSuccess: () => {
                     window.location.reload();
