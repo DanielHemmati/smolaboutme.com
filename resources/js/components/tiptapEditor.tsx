@@ -13,7 +13,7 @@ import Underline from '@tiptap/extension-underline';
 import { BubbleMenu, Editor, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { debounce } from 'lodash';
-import { Bold, CodeXml, Italic, ListTodo, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
+import { Bold, CodeXml, Heading1, Heading2, Italic, ListTodo, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
 import { memo, useEffect } from 'react';
 
 const limit = 2000;
@@ -184,40 +184,74 @@ export default function TiptapEditor({ content }: { content: Content }) {
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                    >
+                                        <Heading1 className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Heading 1</p>
+                                    <span className="text-xs text-gray-500">Ctrl + Shift + 1</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                    >
+                                        <Heading2 className="h-4 w-4" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Heading 2</p>
+                                    <span className="text-xs text-gray-500">Ctrl + Shift + 2</span>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                     </div>
                 </BubbleMenu>
             )}
 
             {/* we should all of this in Editor.tsx, for now this is good enough */}
             {editor && (
-                <div className={`character-count ${editor.storage.characterCount.characters() === limit ? 'character-count--warning' : ''} absolute top-2 right-[200px]`}>
-                    <svg
-                    height="20"
-                    width="20"
-                    viewBox="0 0 20 20"
+                <div
+                    className={`character-count ${editor.storage.characterCount.characters() === limit ? 'character-count--warning' : ''} absolute top-2 right-[200px]`}
                 >
-                    <circle
-                        r="10"
-                        cx="10"
-                        cy="10"
-                        fill="#e9ecef"
-                    />
-                    <circle
-                        r="5"
-                        cx="10"
-                        cy="10"
-                        fill="transparent"
-                        stroke="currentColor"
-                        strokeWidth="10"
-                        strokeDasharray={`calc(${percentage} * 31.4 / 100) 31.4`}
-                        transform="rotate(-90) translate(-20)"
-                    />
-                    <circle
-                        r="6"
-                        cx="10"
-                        cy="10"
-                        fill="white"
-                    />
+                    <svg
+                        height="20"
+                        width="20"
+                        viewBox="0 0 20 20"
+                    >
+                        <circle
+                            r="10"
+                            cx="10"
+                            cy="10"
+                            fill="#e9ecef"
+                        />
+                        <circle
+                            r="5"
+                            cx="10"
+                            cy="10"
+                            fill="transparent"
+                            stroke="currentColor"
+                            strokeWidth="10"
+                            strokeDasharray={`calc(${percentage} * 31.4 / 100) 31.4`}
+                            transform="rotate(-90) translate(-20)"
+                        />
+                        <circle
+                            r="6"
+                            cx="10"
+                            cy="10"
+                            fill="white"
+                        />
                     </svg>
                     {editor.storage.characterCount.characters()} / {limit}
                     {/* <br /> */}
