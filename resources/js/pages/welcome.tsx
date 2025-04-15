@@ -143,7 +143,7 @@ export default function Welcome() {
                                             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Key Features</h3>
                                             <ul className="mt-2 list-inside list-disc text-gray-600 dark:text-gray-300">
                                                 <li>Notion-like editor</li>
-                                                <li>Simple</li>
+                                                <li>2000 characters limit</li>
                                                 <li>Shareable link</li>
                                             </ul>
                                         </div>
@@ -172,6 +172,7 @@ export default function Welcome() {
                                             <ul className="mt-2 list-inside list-disc text-gray-600 dark:text-gray-300">
                                                 <li>Everything from Starter</li>
                                                 <li>Add Domain (coming soon)</li>
+                                                <li>Unlimited characters</li>
                                                 <li>Customize your page (coming soon)</li>
                                             </ul>
                                         </div>
