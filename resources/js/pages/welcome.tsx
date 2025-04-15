@@ -1,9 +1,10 @@
 import AppearanceToggleTab from '@/components/appearance-tabs';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import userContent from '@/lib/welcomeFakeData';
+// import userContent from '@/lib/welcomeFakeData';
+import { UserContent } from '@/types';
 
-export default function Welcome() {
+export default function Welcome({ userContent }: { userContent: UserContent[] }) {
     const { auth } = usePage<SharedData>().props;
     return (
         <>
@@ -79,18 +80,17 @@ export default function Welcome() {
                             <div className="grid grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
                                 {userContent.map(({ id, name, avatar_url, content }) => {
                                     const truncatedContent =
-                                        content.length > 120
-                                            ? content
+                                        content.content.length > 120
+                                            ? content.content
                                                   .replace(/<h1.*?>.*?<\/h1>/g, '')
                                                   .replace(/\s+/g, ' ')
                                                   .slice(0, 120) + '...'
-                                            : content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
+                                            : content.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
                                     return (
                                         <Link
                                             key={id}
                                             className="rounded-lg bg-white p-6 shadow-md transition-all duration-150 hover:shadow-xl dark:bg-neutral-800"
-                                            // href={route('user.profile', { username: name })}
-                                            href='#'
+                                            href={route('user.profile', { username: name })}
                                         >
                                             <div className="mb-4 flex h-50 items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
                                                 <img

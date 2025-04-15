@@ -9,11 +9,13 @@ use App\Models\User;
 
 Route::get('/', function () {
     // TODO: eventually i want to show latest 5 users with content
-    // $userContent = User::with(['content' => function ($query) {
-    //     $query->select('id', 'content', 'user_id');
-    // }])->select('id', 'name', 'avatar_url')->get();
+    $userContent = User::with(['content' => function ($query) {
+        $query->select('id', 'content', 'user_id');
+    }])->select('id', 'name', 'avatar_url')->get();
 
-    return Inertia::render('welcome');
+    return Inertia::render('welcome', [
+        'userContent' => $userContent,
+    ]);
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
