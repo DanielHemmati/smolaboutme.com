@@ -17,8 +17,10 @@ import { Bold, CodeXml, Heading1, Heading2, Italic, ListTodo, Strikethrough, Und
 import { memo, useEffect } from 'react';
 
 const limit = 2000;
+
 export default function TiptapEditor({ content }: { content: Content }) {
     const { auth } = usePage<SharedData>().props;
+
     const editor = useEditor({
         extensions: [
             StarterKit,

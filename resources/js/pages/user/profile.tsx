@@ -26,11 +26,13 @@ function Show({ content, owner }: { content: Content; owner: UserType }) {
                     editor={editor}
                 />
             </div>
-            <div className="absolute top-6 right-12">
-                <Button variant="outline" className="cursor-pointer" asChild>
-                    <Link href={route('user.editor', { username: owner.name })}>Edit</Link>
-                </Button>
-            </div>
+            {owner.id === auth.user.id && (
+                <div className="absolute top-6 right-12">
+                    <Button variant="outline" className="cursor-pointer" asChild>
+                        <Link href={route('user.editor', { username: owner.name })}>Edit</Link>
+                    </Button>
+                </div>
+            )}
         </Layout>
     );
 }
