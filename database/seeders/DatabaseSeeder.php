@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'password' => Hash::make('1337'),
         // ]);
 
-        $lars = User::factory()->create([
+        $lars = User::create([
             'name' => 'Lars Steinmann',
             'email' => 'lars@gmail.com',
             'password' => Hash::make('1337'),
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $elise = User::factory()->create([
+        $elise = User::create([
             'name' => 'Elise Navarro',
             'email' => 'elise@gmail.com',
             'password' => Hash::make('1337'),
@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             HTML,
         ]);
 
-        $derek = User::factory()->create([
+        $derek = User::create([
             'name' => 'Derek McKay',
             'email' => 'derek@gmail.com',
             'password' => Hash::make('1337'),
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             HTML
         ]);
 
-        $zara = User::factory()->create([
+        $zara = User::create([
             'name' => 'Zara Malik',
             'email' => 'zara@gmail.com',
             'password' => Hash::make('1337'),
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $david = User::factory()->create([
+        $david = User::create([
             'name' => 'David Kern',
             'email' => 'david@gmail.com',
             'password' => Hash::make('1337'),
@@ -94,7 +94,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $anna = User::factory()->create([
+        $anna = User::create([
             'name' => 'Ana Sofia Torres',
             'email' => 'anna@gmail.com',
             'password' => Hash::make('1337'),
