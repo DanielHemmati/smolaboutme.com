@@ -3,6 +3,7 @@ import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 // import userContent from '@/lib/welcomeFakeData';
 import { UserContent } from '@/types';
+import { log } from 'console';
 
 export default function Welcome({ userContent }: { userContent: UserContent[] }) {
     const { auth } = usePage<SharedData>().props;

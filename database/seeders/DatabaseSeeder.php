@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
         Content::create([
             'user_id' => $zara->id,
             'content' => <<<HTML
-            <h1>Zara Malik</h1><p>I’m Zara. I do stand-up comedy with a dark twist—because the world’s already a horror show, might as well laugh during the jump scares.</p><p><strong>Governments?</strong> Love ’em. Especially when they’re spying, lying, and then smiling for campaign photos. My punchlines land harder than their policies.</p><p>I say the things people <em>think</em> but won’t say—like how “national security” is just code for “we’re doing shady stuff but can’t tell you because freedom.”</p><p>People tell me I’m brave. I tell them I’m just <em>unemployable</em>.</p><blockquote><p><strong>The world’s falling apart.</strong> I’m just here to roast the debris.</p></blockquote>
+            <h1>Zara Malik</h1><p>I'm Zara. I do stand-up comedy with a dark twist—because the world's already a horror show, might as well laugh during the jump scares.</p><p><strong>Governments?</strong> Love 'em. Especially when they're spying, lying, and then smiling for campaign photos. My punchlines land harder than their policies.</p><p>I say the things people <em>think</em> but won't say—like how "national security" is just code for "we're doing shady stuff but can't tell you because freedom."</p><p>People tell me I'm brave. I tell them I'm just <em>unemployable</em>.</p><blockquote><p><strong>The world's falling apart.</strong> I'm just here to roast the debris.</p></blockquote>
             HTML,
         ]);
 
@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         Content::create([
             'user_id' => $david->id,
             'content' => <<<HTML
-            <h1>David Kern</h1><p>I’m David, co-founder of <strong>Plainbeam</strong> — a product studio focused on calm software, clear thinking, and long-term trust.</p><p>I believe in writing before talking, and listening before reacting. <strong>Good writing is clear thinking made visible.</strong> Inside our company, clarity trumps speed, and strong opinions lose to better arguments.</p><p>I’ve seen how a single well-written message can unblock a team faster than a dozen meetings. Communication isn’t just logistics — it’s <em>culture</em>.</p><p>I’m proud of our small team, our slow growth, and our simple tools. We don’t chase trends. We build software like it’s going to last a decade — because we plan to.</p><blockquote><p><strong>Stay curious. Stay kind. Ship less, mean more.</strong></p></blockquote>
+            <h1>David Kern</h1><p>I'm David, co-founder of <strong>Plainbeam</strong> — a product studio focused on calm software, clear thinking, and long-term trust.</p><p>I believe in writing before talking, and listening before reacting. <strong>Good writing is clear thinking made visible.</strong> Inside our company, clarity trumps speed, and strong opinions lose to better arguments.</p><p>I've seen how a single well-written message can unblock a team faster than a dozen meetings. Communication isn't just logistics — it's <em>culture</em>.</p><p>I'm proud of our small team, our slow growth, and our simple tools. We don't chase trends. We build software like it's going to last a decade — because we plan to.</p><blockquote><p><strong>Stay curious. Stay kind. Ship less, mean more.</strong></p></blockquote>
             HTML,
         ]);
 
@@ -104,7 +104,7 @@ class DatabaseSeeder extends Seeder
         Content::create([
             'user_id' => $anna->id,
             'content' => <<<HTML
-            <h1>Ana Sofia Torres</h1><p>Hi, I'm Ana. I illustrate children's books—mostly stories with foxes, umbrellas, or tiny explorers with big dreams.</p><p>I believe gentle art can change the world. The quiet kind of change—the kind that helps a child feel understood, or helps a grown-up remember they once were one.</p><p>I'm lucky: I get to work in colors, daydreams, and cozy metaphors. I love sketching in cafés, listening to old French music, and mailing postcards to friends I miss.</p><p>If my work makes someone smile softly or feel just a bit lighter, that’s a day well spent.</p><blockquote><p><strong>Be kind. Be curious. Make something soft in a hard world.</strong></p></blockquote>
+            <h1>Ana Sofia Torres</h1><p>Hi, I illustrate <strong>children's books</strong>—mostly stories with <em>foxes</em>, <em>umbrellas</em>, or tiny explorers with big dreams.</p><p>I believe gentle art can change the world. The quiet kind of change—the kind that helps a child feel understood, or helps a grown-up remember they once were one.</p><p>I'm lucky: I get to work in colors, daydreams, and cozy metaphors. I love sketching in cafés, listening to old French music, and mailing postcards to friends I miss.</p><p>If my work makes someone smile softly or feel just a bit lighter, that’s a day well spent.</p><blockquote><p><strong>Be kind. Be curious. Make something soft in a hard world.</strong></p></blockquote>
             HTML,
         ]);
     }
