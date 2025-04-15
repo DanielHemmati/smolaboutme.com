@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Content } from '@/types';
-import { useForm } from '@inertiajs/react';
+import { Content, SharedData } from '@/types';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { Color } from '@tiptap/extension-color';
 import Placeholder from '@tiptap/extension-placeholder';
 import TaskItem from '@tiptap/extension-task-item';
@@ -14,8 +15,8 @@ import { debounce } from 'lodash';
 import { Bold, CodeXml, Italic, ListTodo, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
 import { memo, useEffect } from 'react';
 
-
 export default function TiptapEditor({ content }: { content: Content }) {
+    const { auth } = usePage<SharedData>().props;
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -185,9 +186,11 @@ export default function TiptapEditor({ content }: { content: Content }) {
                 className="focus:outline-none"
             />
 
+            {/* TODO: i don't like that this form is position absolute in here */}
             <TipTapEditorForm
                 handleSubmit={handleSubmit}
                 processing={processing}
+                username={auth.user.name}
             />
         </>
     );
@@ -195,13 +198,22 @@ export default function TiptapEditor({ content }: { content: Content }) {
 
 // TODO: test this.
 const TipTapEditorForm = memo(
-    ({ handleSubmit, processing }: { handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void; processing: boolean }) => {
+    ({
+        handleSubmit,
+        processing,
+        username,
+    }: {
+        handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+        processing: boolean;
+        username: string;
+    }) => {
         return (
             <form
                 onSubmit={handleSubmit}
                 action={route('content.store')}
                 method="post"
             >
+                <SharePopOver username={username} />
                 <Button
                     className={`absolute top-6 right-12 rounded-md dark:bg-white dark:text-black ${processing ? 'cursor-not-allowed opacity-50' : ''}`}
                     type="submit"
@@ -214,3 +226,41 @@ const TipTapEditorForm = memo(
         );
     },
 );
+
+const SharePopOver = ({ username }: { username: string }) => {
+    // const [copied, setCopied] = useState(false);
+
+    return (
+        <div className="absolute top-6 right-34">
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Button variant="outline">Share</Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                    <div className="grid gap-4">
+                        <div className="space-y-2">
+                            <h4 className="leading-none font-medium">Share</h4>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <a
+                                href={route('user.profile', { username })}
+                                target='_blank'
+                                className="text-sm text-gray-800"
+                            >
+                                https://smolaboutme.com/u/{username}
+                            </a>
+                            {/* TODO: add the copy button */}
+                            {/* <CopyIcon
+                                onClick={() => {
+                                    navigator.clipboard.writeText(`https://smolaboutme.com/u/${username}`);
+                                    setCopied(true);
+                                }}
+                                className={`h-4 w-4 `}
+                            /> */}
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+        </div>
+    );
+};

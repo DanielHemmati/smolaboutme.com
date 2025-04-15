@@ -1,9 +1,9 @@
 import Layout from '@/layouts/layout';
 import { Content, SharedData, User as UserType } from '@/types';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-
+import { Button } from '@/components/ui/button';
 // This is where we show the content of the user
 function Show({ content, owner }: { content: Content; owner: UserType }) {
     const { auth } = usePage<SharedData>().props;
@@ -25,6 +25,11 @@ function Show({ content, owner }: { content: Content; owner: UserType }) {
                     className="prose text-black dark:text-[#d4d4d4]"
                     editor={editor}
                 />
+            </div>
+            <div className="absolute top-6 right-12">
+                <Button variant="outline" className="cursor-pointer" asChild>
+                    <Link href={route('user.editor', { username: owner.name })}>Edit</Link>
+                </Button>
             </div>
         </Layout>
     );
