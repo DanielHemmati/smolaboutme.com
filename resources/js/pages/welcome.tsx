@@ -86,7 +86,18 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                                     //               .replace(/\s+/g, ' ')
                                     //               .slice(0, 120) + '...'
                                     //         : content?.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
-                                    const truncatedContent = content?.content?.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ').slice(0, 120) + '...';
+                                    // const truncatedContent =
+                                    //     content?.content
+                                    //         ?.replace(/<h1.*?>.*?<\/h1>/g, '')
+                                    //         .replace(/\s+/g, ' ')
+                                    //         .slice(0, 120) + '...';
+                                    const contentString = typeof content?.content === 'string' ? content.content : '';
+                                    const truncatedContent =
+                                        contentString
+                                            .replace(/<h1.*?>.*?<\/h1>/g, '')
+                                            .replace(/\s+/g, ' ')
+                                            .slice(0, 120) + '...';
+
                                     return (
                                         <Link
                                             key={id}
@@ -123,19 +134,19 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                         </section>
 
                         <section className="flex flex-col items-center p-4 md:p-8">
-                            <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white md:mb-8 md:text-3xl">Pricing</h1>
-                            <div className="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
+                            <h1 className="mb-4 text-2xl font-bold text-gray-900 md:mb-8 md:text-3xl dark:text-white">Pricing</h1>
+                            <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-8">
                                 <div className="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-md dark:bg-neutral-800">
                                     <div className="p-6">
-                                        <h2 className="text-xl font-bold text-gray-800 dark:text-white md:text-2xl">Starter</h2>
+                                        <h2 className="text-xl font-bold text-gray-800 md:text-2xl dark:text-white">Starter</h2>
                                         <p className="mt-2 text-gray-600 dark:text-gray-300">Get started with a simple page</p>
                                         <div className="mt-4">
-                                            <span className="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">$0</span>
+                                            <span className="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">$0</span>
                                             <span className="text-gray-600 dark:text-gray-300"> /month</span>
                                         </div>
                                         <div className="mt-6">
                                             <Link
-                                                className="rounded-full bg-purple-500 px-4 py-2 font-semibold text-white hover:bg-purple-600 dark:bg-purple-700 dark:hover:bg-purple-800 md:px-6 md:py-3"
+                                                className="rounded-full bg-purple-500 px-4 py-2 font-semibold text-white hover:bg-purple-600 md:px-6 md:py-3 dark:bg-purple-700 dark:hover:bg-purple-800"
                                                 href={auth.user ? route('user.editor', { username: auth.user.name }) : route('register')}
                                             >
                                                 Sign up
@@ -156,15 +167,15 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
 
                                 <div className="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-md dark:bg-neutral-800">
                                     <div className="p-6">
-                                        <h2 className="text-xl font-bold text-gray-800 dark:text-white md:text-2xl">Pro</h2>
+                                        <h2 className="text-xl font-bold text-gray-800 md:text-2xl dark:text-white">Pro</h2>
                                         <p className="mt-2 text-gray-600 dark:text-gray-300">Designed for advanced users</p>
                                         <div className="mt-4">
-                                            <span className="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">?</span>
+                                            <span className="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">?</span>
                                             <span className="text-gray-600 dark:text-gray-300"> /month</span>
                                         </div>
                                         <div className="mt-6">
                                             <Link
-                                                className="rounded-full bg-gray-500 px-4 py-2 font-semibold text-white cursor-not-allowed md:px-6 md:py-3"
+                                                className="cursor-not-allowed rounded-full bg-gray-500 px-4 py-2 font-semibold text-white md:px-6 md:py-3"
                                                 href="#"
                                                 onClick={(e) => e.preventDefault()}
                                             >
