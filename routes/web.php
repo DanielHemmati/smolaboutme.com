@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('user.editor');
 
-    Route::post('content', [ContentController::class, 'store'])->name('content.store');
+    Route::post('content', [ContentController::class, 'store'])->name('content.store')->middleware('throttle:publish-button');
 });
 
 // everyone can see what other user has written
