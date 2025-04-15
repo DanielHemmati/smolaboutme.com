@@ -1,22 +1,23 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useInitials } from '@/hooks/use-initials';
-import { SharedData } from '@/types';
+import { SharedData, UserType } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { LogOut, User } from 'lucide-react';
 
 interface LayoutProps {
     children: React.ReactNode;
-    checkUser?: boolean;
+    checkUser?: boolean | string;
+    owner?: UserType;
 }
 
-function Layout({ children, checkUser }: LayoutProps) {
+function Layout({ children, checkUser, owner }: LayoutProps) {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
 
     return (
         <div className="relative container mx-auto">
-            <Head title={`${auth.user.name} - smol page`} />
+            <Head title={`${owner?.name ? owner.name : auth.user.name} - smol page`} />
             <header className="flex items-center justify-between gap-4">
                 <Link href={route('home')}>
                     <img

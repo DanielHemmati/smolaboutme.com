@@ -57,3 +57,8 @@ export interface UserContent {
     avatar_url: string;
     content: Content;
 }
+
+export interface UserType {
+    id: number;
+    name: string;
+}

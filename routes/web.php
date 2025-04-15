@@ -37,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // everyone can see what other user has written
 Route::get('/u/{username}', function (Content $content, $username) {
-    $user = User::where('name', $username)->firstOrFail();
+    $user = User::where('name', $username)->select('id', 'name', 'avatar_url', 'email')->firstOrFail();
     $content = Content::where('user_id', $user->id)->first();
 
     return Inertia::render('user/profile', [

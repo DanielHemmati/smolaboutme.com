@@ -67,6 +67,16 @@ export default function TiptapEditor({ content }: { content: Content }) {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (editor) {
+            const jsoncontent = editor.getJSON();
+            if (
+                jsoncontent.content &&
+                jsoncontent.content.length === 1 &&
+                jsoncontent.content[0].type === 'paragraph' &&
+                !jsoncontent.content[0].content
+            ) {
+                alert('Content is required');
+                return;
+            }
             post(route('content.store'), {
                 onSuccess: () => {
                     window.location.reload();
@@ -266,7 +276,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
                 editor={editor}
                 className="focus:outline-none"
             />
-
+            {/* {errors.content && <div className="text-red-500">{errors.content}</div>} */}
             {/* TODO: i don't like that this form is position absolute in here */}
             <TipTapEditorForm
                 handleSubmit={handleSubmit}
