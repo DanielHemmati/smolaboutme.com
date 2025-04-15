@@ -175,6 +175,22 @@ ol.is-empty::before {
     margin: 0;
 }
 
+.character-count {
+	 align-items: center;
+	 color: var(--gray-5);
+	 display: flex;
+	 font-size: 0.75rem;
+	 gap: 0.5rem;
+	 margin: 1.5rem;
+}
+ .character-count svg {
+	 color: var(--purple);
+}
+ .character-count--warning, .character-count--warning svg {
+	 color: var(--red);
+}
+
+
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

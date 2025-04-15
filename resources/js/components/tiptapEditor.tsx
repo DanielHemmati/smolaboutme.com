@@ -3,6 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Content, SharedData } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
+import CharacterCount from '@tiptap/extension-character-count';
 import { Color } from '@tiptap/extension-color';
 import Placeholder from '@tiptap/extension-placeholder';
 import TaskItem from '@tiptap/extension-task-item';
@@ -15,6 +16,7 @@ import { debounce } from 'lodash';
 import { Bold, CodeXml, Italic, ListTodo, Strikethrough, Underline as UnderlineIcon } from 'lucide-react';
 import { memo, useEffect } from 'react';
 
+const limit = 2000;
 export default function TiptapEditor({ content }: { content: Content }) {
     const { auth } = usePage<SharedData>().props;
     const editor = useEditor({
@@ -31,6 +33,9 @@ export default function TiptapEditor({ content }: { content: Content }) {
             TaskItem.configure({
                 nested: true,
             }),
+            CharacterCount.configure({
+                limit,
+            }),
         ],
         content: content?.content,
         onUpdate: ({ editor }) => {
@@ -38,6 +43,9 @@ export default function TiptapEditor({ content }: { content: Content }) {
         },
         editable: true,
     });
+
+    // for showing character count
+    const percentage = editor ? Math.round((100 / limit) * editor.storage.characterCount.characters()) : 0;
 
     const deboncedUpdate = debounce((editor: Editor) => {
         const jsoncontent = editor.getJSON();
@@ -180,6 +188,43 @@ export default function TiptapEditor({ content }: { content: Content }) {
                 </BubbleMenu>
             )}
 
+            {/* we should all of this in Editor.tsx, for now this is good enough */}
+            {editor && (
+                <div className={`character-count ${editor.storage.characterCount.characters() === limit ? 'character-count--warning' : ''} absolute top-2 right-[200px]`}>
+                    <svg
+                    height="20"
+                    width="20"
+                    viewBox="0 0 20 20"
+                >
+                    <circle
+                        r="10"
+                        cx="10"
+                        cy="10"
+                        fill="#e9ecef"
+                    />
+                    <circle
+                        r="5"
+                        cx="10"
+                        cy="10"
+                        fill="transparent"
+                        stroke="currentColor"
+                        strokeWidth="10"
+                        strokeDasharray={`calc(${percentage} * 31.4 / 100) 31.4`}
+                        transform="rotate(-90) translate(-20)"
+                    />
+                    <circle
+                        r="6"
+                        cx="10"
+                        cy="10"
+                        fill="white"
+                    />
+                    </svg>
+                    {editor.storage.characterCount.characters()} / {limit}
+                    {/* <br /> */}
+                    {/* {editor.storage.characterCount.words()} words */}
+                </div>
+            )}
+
             {/* i am going with update and throttle */}
             <EditorContent
                 editor={editor}
@@ -244,7 +289,7 @@ const SharePopOver = ({ username }: { username: string }) => {
                         <div className="flex items-center gap-4">
                             <a
                                 href={route('user.profile', { username })}
-                                target='_blank'
+                                target="_blank"
                                 className="text-sm text-gray-800"
                             >
                                 https://smolaboutme.com/u/{username}
