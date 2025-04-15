@@ -1,19 +1,10 @@
 import AppearanceToggleTab from '@/components/appearance-tabs';
-import { UserContent, type SharedData } from '@/types';
+import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
+import userContent from '@/lib/welcomeFakeData';
 
-const someExmaple = [
-    {
-        id: 1,
-        name: 'John Doe',
-        avatar_url: 'https://via.placeholder.com/150',
-        content: 'This is a brief description of what the user has written about themselves. It can be a short bio or an interesting fact.',
-    },
-];
-
-export default function Welcome({ userContent }: { userContent: UserContent[] }) {
+export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
-    console.log(userContent);
     return (
         <>
             <Head title="Welcome">
@@ -88,12 +79,12 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                             <div className="grid grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
                                 {userContent.map(({ id, name, avatar_url, content }) => {
                                     const truncatedContent =
-                                        content.content.length > 120
-                                            ? content.content
+                                        content.length > 120
+                                            ? content
                                                   .replace(/<h1.*?>.*?<\/h1>/g, '')
                                                   .replace(/\s+/g, ' ')
                                                   .slice(0, 120) + '...'
-                                            : content.content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
+                                            : content.replace(/<h1.*?>.*?<\/h1>/g, '').replace(/\s+/g, ' ');
                                     return (
                                         <Link
                                             key={id}

@@ -8,14 +8,12 @@ use App\Http\Controllers\ContentController;
 use App\Models\User;
 
 Route::get('/', function () {
-    // my elquent game is not good still
-    $userContent = User::with(['content' => function ($query) {
-        $query->select('id', 'content', 'user_id');
-    }])->select('id', 'name', 'avatar_url')->get();
+    // TODO: eventually i want to show latest 5 users with content
+    // $userContent = User::with(['content' => function ($query) {
+    //     $query->select('id', 'content', 'user_id');
+    // }])->select('id', 'name', 'avatar_url')->get();
 
-    return Inertia::render('welcome', [
-        'userContent' => $userContent,
-    ]);
+    return Inertia::render('welcome');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
