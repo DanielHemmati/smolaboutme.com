@@ -10,7 +10,7 @@ function Show({ content, owner }: { content: Content; owner: UserType }) {
 
     const editor = useEditor({
         extensions: [StarterKit],
-        content: content.content,
+        content: content?.content,
         editable: false,
     });
 

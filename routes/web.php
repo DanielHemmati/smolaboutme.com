@@ -39,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/u/{username}', function (Content $content, $username) {
     $user = User::where('name', $username)->firstOrFail();
     $content = Content::where('user_id', $user->id)->first();
-    // dd($content);
+
     return Inertia::render('user/profile', [
         'content' => $content,
         'owner' => $user,
