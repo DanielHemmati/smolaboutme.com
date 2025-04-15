@@ -10,8 +10,10 @@ use App\Models\User;
 Route::get('/', function () {
     // TODO: eventually i want to show latest 5 users with content
     $userContent = User::with(['content' => function ($query) {
-        $query->select('id', 'content', 'user_id');
+        $query->select('id', 'content', 'user_id')->oldest()->first();
     }])->select('id', 'name', 'avatar_url')->get();
+
+    dd($userContent);
 
     return Inertia::render('welcome', [
         'userContent' => $userContent,
