@@ -30,7 +30,7 @@ function Show({ content, owner }: { content: Content; owner: UserType }) {
                 <div className="absolute top-6 right-12">
                     <Button
                         variant="outline"
-                        className="cursor-pointer"
+                        className="cursor-pointer dark:bg-white dark:text-black"
                         asChild
                     >
                         <Link href={route('user.editor', { username: owner?.name })}>Edit</Link>
