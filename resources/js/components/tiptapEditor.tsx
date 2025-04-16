@@ -184,7 +184,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
                                 <TooltipTrigger asChild>
                                     <button
                                         onClick={() => editor.chain().focus().toggleTaskList().run()}
-                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                        className={`${editor.isActive('taskList') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
                                         <ListTodo className="h-4 w-4" />
                                     </button>
@@ -201,7 +201,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
                                 <TooltipTrigger asChild>
                                     <button
                                         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                        className={`${editor.isActive('heading', { level: 1 }) ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
                                         <Heading1 className="h-4 w-4" />
                                     </button>
@@ -217,7 +217,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
                                 <TooltipTrigger asChild>
                                     <button
                                         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                                        className={`${editor.isActive('code') ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                        className={`${editor.isActive('heading', { level: 2 }) ? 'text-blue-500' : 'text-black dark:text-white'} cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
                                     >
                                         <Heading2 className="h-4 w-4" />
                                     </button>
