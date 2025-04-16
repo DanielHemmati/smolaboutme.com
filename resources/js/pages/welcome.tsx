@@ -159,6 +159,7 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                                                 <li>2000 characters limit</li>
                                                 <li>Shareable link</li>
                                                 <li>Add Links (coming soon)</li>
+                                                <li>Add Images (coming soon)</li>
                                                 <li>Add youtube, spotify, twitter, ... (coming soon)</li>
                                             </ul>
                                         </div>
