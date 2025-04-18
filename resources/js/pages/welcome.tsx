@@ -200,15 +200,18 @@ export default function Welcome({ userContent }: { userContent: UserContent[] })
                         <footer className="py-10">
                             <div className="container mx-auto flex flex-col items-center justify-between px-6 md:flex-row">
                                 <AppearanceToggleTab className="mb-4 md:mb-0" />
-                                <Link
+                                <span
                                     className="text-center text-gray-600 dark:text-gray-300"
-                                    href="https://x.com/DaniellHemmati"
                                 >
                                     Built with ❤️ by{' '}
-                                    <span className="font-bold text-purple-500 underline hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-500">
+                                    <a
+                                        href="https://x.com/DaniellHemmati"
+                                        className="font-bold text-purple-500 underline hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-500"
+                                        target="_blank"
+                                    >
                                         @DanielHemmati
-                                    </span>
-                                </Link>
+                                    </a>
+                                </span>
                             </div>
                         </footer>
                     </main>
