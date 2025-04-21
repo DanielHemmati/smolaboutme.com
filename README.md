@@ -53,8 +53,9 @@ After that you can access the editor at `http://localhost:3000`
 - [ ] Add the ability to add image (make sure images are no more than 5MB)
 - [ ] add ability to add links (how do you make sure links are not malicious???)
 - [ ] Add the ability to add tables
-- [ ] Add the ability to add youtube 
+- [ ] Add the ability to add youtube
 - [ ] Add the ability to add pdf
 - [ ] Add the ability to add audio
+- [ ] implement pricing page using cashier for practice
 
 
