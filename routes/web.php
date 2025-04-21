@@ -8,7 +8,6 @@ use App\Http\Controllers\ContentController;
 use App\Models\User;
 
 Route::get('/', function () {
-    // TODO: eventually i want to show latest 5 users with content
     $userContent = User::with(['content' => function ($query) {
         $query->select('id', 'content', 'user_id')->oldest();
     }])->select('id', 'name', 'avatar_url')->take(6)->get();
@@ -22,7 +21,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/u/{username}/editor', function ($username) {
         $user = User::where('name', $username)->firstOrFail();
 
-        // TODO: this doesn't makes much sense tbh. it's good for now
         if ($user->id !== Auth::user()->id) {
             return redirect()->route('user.profile', ['username' => $username]);
         }
