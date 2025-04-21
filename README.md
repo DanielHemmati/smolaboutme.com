@@ -46,6 +46,12 @@ composer run dev
 
 After that you can access the editor at `http://localhost:3000`
 
+## Do you want to contribute?
+
+Yes, please do!  
+Below are the list of things which are not implemented yet.  
+So pick one and send a PR.
+
 ## Todo
 
 - [ ] Add test please 😅
