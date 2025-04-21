@@ -68,6 +68,8 @@ export default function TiptapEditor({ content }: { content: Content }) {
         e.preventDefault();
         if (editor) {
             const jsoncontent = editor.getJSON();
+            // if there is nothing in the editor, don't submit
+            // there has to be a better way to do this
             if (
                 jsoncontent.content &&
                 jsoncontent.content.length === 1 &&
@@ -228,6 +230,90 @@ export default function TiptapEditor({ content }: { content: Content }) {
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
+
+                        <Popover>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <PopoverTrigger asChild>
+                                        <TooltipTrigger asChild>
+                                            <button className={`cursor-pointer rounded-md px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}>
+                                                A
+                                            </button>
+                                        </TooltipTrigger>
+                                    </PopoverTrigger>
+                                    <TooltipContent>Text color</TooltipContent>
+                                    <PopoverContent className="w-[200px]">
+                                        {/* <div className="grid grid-cols-3 gap-2 justify-items-center"> */}
+                                        <span className="block text-left text-xs text-gray-500 ml-4 mb-1">Text colors</span>
+                                        <div className="flex flex-wrap justify-center gap-4">
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#000000').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#000000' }) ? 'text-[#000000]' : ''} h-8 w-8 cursor-pointer rounded-md border border-black px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setBlack"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#958DF1').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#958DF1' }) ? 'text-[#958DF1]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#958DF1] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setPurple"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#F98181').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#F98181' }) ? 'text-[#F98181]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#F98181] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setRed"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#FBBC88').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#FBBC88' }) ? 'text-[#FBBC88]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#FBBC88] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setOrange"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#FAF594').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#FAF594' }) ? 'text-[#FAF594]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#FAF594] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setYellow"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#70CFF8').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#70CFF8' }) ? 'text-[#70CFF8]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#70CFF8] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setBlue"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#94FADB').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#94FADB' }) ? 'text-[#94FADB]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#94FADB] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setTeal"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().setColor('#B9F18D').run()}
+                                                className={`${editor.isActive('textStyle', { color: '#B9F18D' }) ? 'text-[#B9F18D]' : ''} h-8 w-8 cursor-pointer rounded-md border border-[#B9F18D] px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="setGreen"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                onClick={() => editor.chain().focus().unsetColor().run()}
+                                                className={`h-8 w-8 cursor-pointer rounded-md border border-transparent px-2 py-1 hover:bg-[#f2f2f3] dark:hover:bg-[#313030]`}
+                                                data-testid="unsetColor"
+                                            >
+                                                C
+                                            </button>
+                                        </div>
+                                    </PopoverContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </Popover>
                     </div>
                 </BubbleMenu>
             )}
